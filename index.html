@@ -164,6 +164,17 @@
   footer{background:#0F1512;color:rgba(255,255,255,.5);padding:38px 0;font-size:.78rem}
   footer .in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
   footer b{color:rgba(255,255,255,.8)}
+
+/* mobile hardening 2026-08-16 */
+@media(max-width:430px){
+  nav .in{padding-left:16px;padding-right:16px;gap:10px}
+  .logo{gap:8px}
+  .logo .cn{font-size:1rem;letter-spacing:.1em}
+  .logo .en{font-size:.6rem;letter-spacing:.12em}
+  .langs button{padding:5px 9px}
+  .mk{grid-template-columns:repeat(2,1fr) !important}
+  .fineprint{font-size:.84rem !important;line-height:1.7}
+}
 </style>
 </head>
 <body class="L-hant">
@@ -810,7 +821,7 @@
 <footer>
   <div class="wrap in">
     <div><b>律呂軒</b> · Coherence Audio Lab　—　以律校聲 / Measured, not guessed.</div>
-    <div>Henderson Transpacific　·　HK · CN · TW · US · CA</div>
+    <div>Henderson Transpacific LLC (USA)　·　HK · CN · TW · US · CA</div>
   </div>
 </footer>
 
