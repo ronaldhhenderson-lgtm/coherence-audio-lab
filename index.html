@@ -27,13 +27,15 @@
   [data-l]{display:none}
   body.L-hant [data-l="hant"],
   body.L-hans [data-l="hans"],
-  body.L-en   [data-l="en"]{display:block}
+  body.L-en   [data-l="en"],
+  body.L-ja   [data-l="ja"],
+  body.L-it   [data-l="it"]{display:block}
   span[data-l],a[data-l],em[data-l]{display:none}
-  body.L-hant span[data-l="hant"], body.L-hans span[data-l="hans"], body.L-en span[data-l="en"]{display:inline}
-  body.L-hant a[data-l="hant"], body.L-hans a[data-l="hans"], body.L-en a[data-l="en"]{display:inline}
+  body.L-hant span[data-l="hant"], body.L-hans span[data-l="hans"], body.L-en span[data-l="en"], body.L-ja span[data-l="ja"], body.L-it span[data-l="it"]{display:inline}
+  body.L-hant a[data-l="hant"], body.L-hans a[data-l="hans"], body.L-en a[data-l="en"], body.L-ja a[data-l="ja"], body.L-it a[data-l="it"]{display:inline}
   /* table cells must keep table semantics, not become blocks */
-  body.L-hant td[data-l="hant"], body.L-hans td[data-l="hans"], body.L-en td[data-l="en"]{display:table-cell}
-  body.L-hant th[data-l="hant"], body.L-hans th[data-l="hans"], body.L-en th[data-l="en"]{display:table-cell}
+  body.L-hant td[data-l="hant"], body.L-hans td[data-l="hans"], body.L-en td[data-l="en"], body.L-ja td[data-l="ja"], body.L-it td[data-l="it"]{display:table-cell}
+  body.L-hant th[data-l="hant"], body.L-hans th[data-l="hans"], body.L-en th[data-l="en"], body.L-ja th[data-l="ja"], body.L-it th[data-l="it"]{display:table-cell}
 
   /* nav */
   nav{position:fixed;top:0;left:0;right:0;z-index:60;backdrop-filter:blur(14px);
@@ -169,12 +171,13 @@
 @media(max-width:430px){
   nav .in{padding-left:16px;padding-right:16px;gap:10px}
   .logo{gap:8px}
-  .logo .cn{font-size:1rem;letter-spacing:.1em}
+  .logo .cn{font-size:1rem;letter-spacing:.1em;white-space:nowrap}
   .logo .en{font-size:.6rem;letter-spacing:.12em}
   .langs button{padding:5px 9px}
   .mk{grid-template-columns:repeat(2,1fr) !important}
   .fineprint{font-size:.84rem !important;line-height:1.7}
 }
+body.L-ja{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP","Meiryo","Noto Sans TC",sans-serif}
 </style>
 </head>
 <body class="L-hant">
@@ -189,6 +192,8 @@
       <button data-set="hant" class="on">繁</button>
       <button data-set="hans">简</button>
       <button data-set="en">EN</button>
+      <button data-set="ja">日</button>
+      <button data-set="it">IT</button>
     </div>
   </div>
 </nav>
@@ -200,19 +205,19 @@
 
     <h1 data-l="hant">以律校聲</h1>
     <h1 data-l="hans">以律校声</h1>
-    <h1 data-l="en">Measured,<br>Not Guessed.</h1>
+    <h1 data-l="en">Measured,<br>Not Guessed.</h1><h1 data-l="ja">測る。<br>勘に頼らない。</h1><h1 data-l="it">Misurato,<br>non improvvisato.</h1>
 
     <div class="rule"></div>
 
     <p class="sub" data-l="hant">車廂的聲學缺陷，可以被量測、被計算、被修正。我們只做一件事——把它做到底。</p>
     <p class="sub" data-l="hans">车厢的声学缺陷，可以被测量、被计算、被修正。我们只做一件事——把它做到底。</p>
-    <p class="sub" data-l="en">The acoustic flaws of a cabin can be measured, calculated and corrected. We do one thing, and we do it completely.</p>
+    <p class="sub" data-l="en">The acoustic flaws of a cabin can be measured, calculated and corrected. We do one thing, and we do it completely.</p><p class="sub" data-l="ja">車室の音響的な欠陥は、測定でき、計算でき、補正できます。私たちはそれだけを、最後までやり抜きます。</p><p class="sub" data-l="it">I difetti acustici di un abitacolo si possono misurare, calcolare e correggere. Facciamo una cosa sola, e la portiamo fino in fondo.</p>
 
     <div class="prod">
       <div class="num">270</div>
       <div class="lab" data-l="hant">音質調校 × 施工，一套完整服務。<br>只做 Tesla。<br>270 是評分表的滿分——我們對準的基準，不是我們宣稱的成績。</div>
       <div class="lab" data-l="hans">音质调校 × 施工，一套完整服务。<br>只做 Tesla。<br>270 是评分表的满分——我们对准的基准，不是我们宣称的成绩。</div>
-      <div class="lab" data-l="en">Tuning and installation, as one service.<br>Tesla only.<br>270 is the maximum on the scoresheet — the reference we tune toward, not a score we claim.</div>
+      <div class="lab" data-l="en">Tuning and installation, as one service.<br>Tesla only.<br>270 is the maximum on the scoresheet — the reference we tune toward, not a score we claim.</div><div class="lab" data-l="ja">音質調整 × 施工を、ひとつの完結したサービスとして。<br>Tesla 専門。<br>270 は採点表の満点——私たちが照準する基準であって、成績の主張ではありません。</div><div class="lab" data-l="it">Taratura e installazione, un unico servizio completo.<br>Solo Tesla.<br>270 è il punteggio massimo della scheda di valutazione — il riferimento verso cui tariamo, non un risultato che rivendichiamo.</div>
     </div>
 
     <div class="curvewrap">
@@ -239,23 +244,23 @@
 
     <h2 data-l="hant">一切始於一個聽起來像抬槓的問題</h2>
     <h2 data-l="hans">一切始于一个听起来像抬杠的问题</h2>
-    <h2 data-l="en">It started with a question that sounded like cynicism</h2>
+    <h2 data-l="en">It started with a question that sounded like cynicism</h2><h2 data-l="ja">すべては、皮肉にも聞こえる問いから始まった</h2><h2 data-l="it">Tutto è iniziato da una domanda che suonava come una provocazione</h2>
 
     <p class="lede" data-l="hant">那些天價的車載音響品牌，喇叭究竟是誰做的？答案查得到，而且並不聳動——那些工廠多半是品牌集團自己的。技術沒有外流，也不需要外流。</p>
     <p class="lede" data-l="hans">那些天价的车载音响品牌，喇叭究竟是谁做的？答案查得到，而且并不耸动——那些工厂多半是品牌集团自己的。技术没有外流，也不需要外流。</p>
-    <p class="lede" data-l="en">Who actually builds the drivers behind the expensive badges? The answer is findable, and unremarkable — those plants usually belong to the brand groups themselves. No technology leaked out, and none needed to.</p>
+    <p class="lede" data-l="en">Who actually builds the drivers behind the expensive badges? The answer is findable, and unremarkable — those plants usually belong to the brand groups themselves. No technology leaked out, and none needed to.</p><p class="lede" data-l="ja">高価なブランドの車載スピーカーは、実際には誰が作っているのか。答えは調べればわかり、そして驚くほど平凡です——多くの工場はブランドグループ自身のもの。技術は流出していないし、流出する必要もなかったのです。</p><p class="lede" data-l="it">Chi costruisce davvero gli altoparlanti dietro i marchi più costosi? La risposta si trova, ed è poco clamorosa: quegli stabilimenti appartengono per lo più agli stessi gruppi. Nessuna tecnologia è trapelata, e non ce n’era bisogno.</p>
 
     <div class="pull" data-l="hant">但真正的答案藏在問題後面：硬體從來就不是護城河。</div>
     <div class="pull" data-l="hans">但真正的答案藏在问题后面：硬件从来就不是护城河。</div>
-    <div class="pull" data-l="en">But the real answer sits behind the question: the hardware was never the moat.</div>
+    <div class="pull" data-l="en">But the real answer sits behind the question: the hardware was never the moat.</div><div class="pull" data-l="ja">本当の答えは、問いの先にありました。参入障壁は、最初からハードウェアではなかった。</div><div class="pull" data-l="it">Ma la vera risposta sta dietro la domanda: il fossato non è mai stato l’hardware.</div>
 
     <p class="body" data-l="hant">磁鐵、音圈、振膜——這些早就不是秘密。被鎖住的是看不見的那一層：訊號處理的演算法，以及針對每一款車、每一個座艙所做的專屬調音。你付的那筆溢價，買的不是銅和紙，是一套聽不見、卻決定一切的隱形工程。</p>
     <p class="body" data-l="hans">磁铁、音圈、振膜——这些早就不是秘密。被锁住的是看不见的那一层：信号处理的算法，以及针对每一款车、每一个座舱所做的专属调音。你付的那笔溢价，买的不是铜和纸，是一套听不见、却决定一切的隐形工程。</p>
-    <p class="body" data-l="en">Magnets, voice coils, diaphragms — none of that is secret. What stays locked is the invisible layer: the signal-processing algorithms, and the tuning done for one specific car and one specific cabin. The premium you pay isn't for copper and paper. It's for engineering you cannot see and cannot hear directly, which nonetheless decides everything.</p>
+    <p class="body" data-l="en">Magnets, voice coils, diaphragms — none of that is secret. What stays locked is the invisible layer: the signal-processing algorithms, and the tuning done for one specific car and one specific cabin. The premium you pay isn't for copper and paper. It's for engineering you cannot see and cannot hear directly, which nonetheless decides everything.</p><p class="body" data-l="ja">マグネット、ボイスコイル、振動板——これらはもう秘密ではありません。閉ざされているのは見えない層です。信号処理のアルゴリズム、そして車種ごと・車室ごとに施される専用チューニング。あなたが払うプレミアムは銅や紙の対価ではなく、聞こえず見えず、しかしすべてを決める見えないエンジニアリングの対価なのです。</p><p class="body" data-l="it">Magneti, bobine, membrane — nulla di tutto questo è un segreto. Ciò che resta chiuso a chiave è lo strato invisibile: gli algoritmi di elaborazione del segnale e la taratura fatta per una specifica vettura, per uno specifico abitacolo. Il sovrapprezzo che paghi non compra rame e carta: compra un’ingegneria che non si vede e non si sente direttamente, ma che decide tutto.</p>
 
     <p class="body" data-l="hant">想通這件事的那一刻，整個問題就翻轉了。因為演算法有一個硬體沒有的性質——<strong>它可以被重新推導</strong>。而推導靠的不是預算，是紀律：願不願意接受車廂量出來的那條難看的曲線，願不願意一微秒一微秒，把聲音修回它本來該有的樣子。</p>
     <p class="body" data-l="hans">想通这件事的那一刻，整个问题就翻转了。因为算法有一个硬件没有的性质——<strong>它可以被重新推导</strong>。而推导靠的不是预算，是纪律：愿不愿意接受车厢量出来的那条难看的曲线，愿不愿意一微秒一微秒，把声音修回它本来该有的样子。</p>
-    <p class="body" data-l="en">The moment that lands, the problem inverts. Because an algorithm has a property hardware does not — <strong>it can be re-derived</strong>. And re-deriving it takes discipline rather than budget: the willingness to accept the ugly curve the cabin actually produces, and to correct it back, one microsecond at a time.</p>
+    <p class="body" data-l="en">The moment that lands, the problem inverts. Because an algorithm has a property hardware does not — <strong>it can be re-derived</strong>. And re-deriving it takes discipline rather than budget: the willingness to accept the ugly curve the cabin actually produces, and to correct it back, one microsecond at a time.</p><p class="body" data-l="ja">それに気づいた瞬間、問題は反転します。アルゴリズムには、ハードウェアにはない性質があるからです——<strong>再導出できる</strong>ということ。そして再導出に必要なのは予算ではなく規律です。車室が実際に描く不格好な曲線を受け入れ、1 マイクロ秒ずつ、音を本来あるべき姿へ戻していく意志です。</p><p class="body" data-l="it">Nel momento in cui lo capisci, il problema si rovescia. Perché un algoritmo ha una proprietà che l’hardware non ha — <strong>può essere riderivato</strong>. E riderivarlo richiede disciplina, non budget: la volontà di accettare la curva sgraziata che l’abitacolo produce davvero, e di correggerla, un microsecondo alla volta.</p>
   </div>
 </section>
 
@@ -266,49 +271,49 @@
 
     <h2 data-l="hant">我們只做一種車</h2>
     <h2 data-l="hans">我们只做一种车</h2>
-    <h2 data-l="en">We work on one car</h2>
+    <h2 data-l="en">We work on one car</h2><h2 data-l="ja">私たちは一種類の車しか扱わない</h2><h2 data-l="it">Lavoriamo su una sola auto</h2>
 
     <p class="lede" data-l="hant">一般改裝店每天面對不同的車，每一台都得從零開始猜。我們選擇相反的路——把同一個車廂做一百遍。</p>
     <p class="lede" data-l="hans">一般改装店每天面对不同的车，每一台都得从零开始猜。我们选择相反的路——把同一个车厢做一百遍。</p>
-    <p class="lede" data-l="en">A general shop faces a different car every day, and starts guessing from zero on each one. We took the opposite route — the same cabin, a hundred times over.</p>
+    <p class="lede" data-l="en">A general shop faces a different car every day, and starts guessing from zero on each one. We took the opposite route — the same cabin, a hundred times over.</p><p class="lede" data-l="ja">一般の店は毎日違う車と向き合い、毎回ゼロから推測を始めます。私たちは逆の道を選びました——同じ車室を、百回作り込むこと。</p><p class="lede" data-l="it">Un’officina generalista affronta ogni giorno un’auto diversa, e su ognuna ricomincia a indovinare da zero. Noi abbiamo scelto la strada opposta: lo stesso abitacolo, cento volte.</p>
 
     <div class="pull" data-l="hant">重複性，就是精度。</div>
     <div class="pull" data-l="hans">重复性，就是精度。</div>
-    <div class="pull" data-l="en">Repetition is precision.</div>
+    <div class="pull" data-l="en">Repetition is precision.</div><div class="pull" data-l="ja">反復こそが、精度である。</div><div class="pull" data-l="it">La ripetizione è precisione.</div>
 
     <p class="body" data-l="hant">每一台同型號 Tesla 的車門容積是一樣的，A 柱角度是一樣的，擋風玻璃傾角是一樣的，低壓系統是一樣的，逆變器的干擾特性也是一樣的。這代表我們每量一台，下一台的起點就更高——第一百台不是從零開始，它從前面九十九條曲線累積出來的基準開始。</p>
     <p class="body" data-l="hans">每一台同型号 Tesla 的车门容积是一样的，A 柱角度是一样的，挡风玻璃倾角是一样的，低压系统是一样的，逆变器的干扰特性也是一样的。这代表我们每量一台，下一台的起点就更高——第一百台不是从零开始，它从前面九十九条曲线累积出来的基准开始。</p>
-    <p class="body" data-l="en">Across one model, the door volume is the same. The pillar angle is the same. The windscreen rake, the low-voltage system, the inverter's interference signature — all the same. Which means every car we measure raises the starting point for the next. The hundredth car doesn't begin at zero; it begins from a baseline built out of the ninety-nine curves before it.</p>
+    <p class="body" data-l="en">Across one model, the door volume is the same. The pillar angle is the same. The windscreen rake, the low-voltage system, the inverter's interference signature — all the same. Which means every car we measure raises the starting point for the next. The hundredth car doesn't begin at zero; it begins from a baseline built out of the ninety-nine curves before it.</p><p class="body" data-l="ja">同一モデルの Tesla は、ドア容積が同じ、A ピラーの角度が同じ、ガラスの傾斜が同じ、低圧系が同じ、インバーターの干渉特性まで同じです。つまり 1 台測るごとに、次の 1 台の出発点が高くなる。100 台目はゼロから始まらず、その前の 99 本の曲線が築いた基準から始まります。</p><p class="body" data-l="it">A parità di modello, il volume della portiera è identico. L’angolo del montante è identico. L’inclinazione del parabrezza, l’impianto a bassa tensione, la firma di interferenza dell’inverter — tutto identico. Ogni auto che misuriamo alza il punto di partenza della successiva: la centesima non parte da zero, parte dalla base costruita dalle novantanove curve precedenti.</p>
 
     <div class="steps">
       <div class="step">
         <div class="n">01</div>
-        <h3 data-l="hant">最安靜的畫布</h3><h3 data-l="hans">最安静的画布</h3><h3 data-l="en">The quietest canvas</h3>
+        <h3 data-l="hant">最安靜的畫布</h3><h3 data-l="hans">最安静的画布</h3><h3 data-l="en">The quietest canvas</h3><h3 data-l="ja">最も静かなキャンバス</h3><h3 data-l="it">La tela più silenziosa</h3>
         <p data-l="hant">沒有引擎、沒有排氣、沒有變速箱。純電座艙的環境底噪極低——細節不會被引擎聲蓋掉。但這也意味著，任何系統自身的底噪都無所遁形。</p>
         <p data-l="hans">没有引擎、没有排气、没有变速箱。纯电座舱的环境底噪极低——细节不会被引擎声盖掉。但这也意味着，任何系统自身的底噪都无所遁形。</p>
-        <p data-l="en">No engine, no exhaust, no gearbox. The ambient noise floor of an EV cabin is extraordinarily low, so detail never gets buried. It also means any noise the system itself makes has nowhere to hide.</p>
+        <p data-l="en">No engine, no exhaust, no gearbox. The ambient noise floor of an EV cabin is extraordinarily low, so detail never gets buried. It also means any noise the system itself makes has nowhere to hide.</p><p data-l="ja">エンジンも、排気も、変速機もない。EV 車室の暗騒音は極めて低く、ディテールがかき消されることはありません。ただしそれは、システム自身のノイズも隠れ場所がないということです。</p><p data-l="it">Niente motore, niente scarico, niente cambio. Il rumore di fondo di un abitacolo elettrico è bassissimo: i dettagli non vengono mai sepolti. Ma significa anche che ogni rumore prodotto dal sistema stesso non ha dove nascondersi.</p>
       </div>
       <div class="step">
         <div class="n">02</div>
-        <h3 data-l="hant">專屬的難題</h3><h3 data-l="hans">专属的难题</h3><h3 data-l="en">A problem unique to EVs</h3>
+        <h3 data-l="hant">專屬的難題</h3><h3 data-l="hans">专属的难题</h3><h3 data-l="en">A problem unique to EVs</h3><h3 data-l="ja">EV 固有の難題</h3><h3 data-l="it">Un problema che esiste solo sulle elettriche</h3>
         <p data-l="hant">逆變器與 DC-DC 轉換器產生的高頻干擾，是燃油車沒有的問題。因為我們處理的每一台車都在同一個電氣環境裡，我們知道那些雜訊從哪裡來、該怎麼隔離。</p>
         <p data-l="hans">逆变器与 DC-DC 转换器产生的高频干扰，是燃油车没有的问题。因为我们处理的每一台车都在同一个电气环境里，我们知道那些杂讯从哪里来、该怎么隔离。</p>
-        <p data-l="en">High-frequency interference from the inverter and DC-DC converter is a problem combustion cars simply don't have. Because every car we touch shares the same electrical environment, we know where that noise originates and how to isolate it.</p>
+        <p data-l="en">High-frequency interference from the inverter and DC-DC converter is a problem combustion cars simply don't have. Because every car we touch shares the same electrical environment, we know where that noise originates and how to isolate it.</p><p data-l="ja">インバーターと DC-DC コンバーターが発する高周波ノイズは、内燃機関車には存在しない問題です。扱う車がすべて同じ電気環境にあるからこそ、そのノイズがどこから来て、どう遮断すべきかを私たちは知っています。</p><p data-l="it">Le interferenze ad alta frequenza di inverter e convertitore DC-DC sono un problema che le auto a combustione semplicemente non hanno. Poiché ogni vettura su cui lavoriamo condivide lo stesso ambiente elettrico, sappiamo da dove nasce quel rumore e come isolarlo.</p>
       </div>
       <div class="step">
         <div class="n">03</div>
-        <h3 data-l="hant">不碰高壓系統</h3><h3 data-l="hans">不碰高压系统</h3><h3 data-l="en">The traction system stays untouched</h3>
+        <h3 data-l="hant">不碰高壓系統</h3><h3 data-l="hans">不碰高压系统</h3><h3 data-l="en">The traction system stays untouched</h3><h3 data-l="ja">高電圧系には触れない</h3><h3 data-l="it">Il sistema di trazione non si tocca</h3>
         <p data-l="hant">全部取電來自 12V 低壓輔助系統，高壓動力系統一處不動。這不是保守，是我們對這個平台夠熟，知道界線在哪裡。</p>
         <p data-l="hans">全部取电来自 12V 低压辅助系统，高压动力系统一处不动。这不是保守，是我们对这个平台够熟，知道界线在哪里。</p>
-        <p data-l="en">Power is drawn exclusively from the 12 V auxiliary system; the high-voltage traction side is never touched. That isn't caution — it's knowing the platform well enough to know exactly where the line sits.</p>
+        <p data-l="en">Power is drawn exclusively from the 12 V auxiliary system; the high-voltage traction side is never touched. That isn't caution — it's knowing the platform well enough to know exactly where the line sits.</p><p data-l="ja">電源はすべて 12V 補機系から取り、高電圧の駆動系には一切手を触れません。保守的なのではなく、このプラットフォームを熟知しているからこそ、境界線の位置がわかるのです。</p><p data-l="it">L’alimentazione proviene esclusivamente dal sistema ausiliario a 12 V; il lato trazione ad alta tensione non viene mai toccato. Non è prudenza: è conoscere la piattaforma abbastanza bene da sapere esattamente dove passa il confine.</p>
       </div>
     </div>
 
     <div class="mk" style="grid-template-columns:repeat(4,1fr)">
-      <div class="mkc"><div class="r">Model S</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div></div>
-      <div class="mkc"><div class="r">Model 3</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div></div>
-      <div class="mkc"><div class="r">Model X</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div></div>
-      <div class="mkc"><div class="r">Model Y</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div></div>
+      <div class="mkc"><div class="r">Model S</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div><div class="s" data-l="ja">全モデルイヤー対応</div><div class="s" data-l="it">Tutti i model year</div></div>
+      <div class="mkc"><div class="r">Model 3</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div><div class="s" data-l="ja">全モデルイヤー対応</div><div class="s" data-l="it">Tutti i model year</div></div>
+      <div class="mkc"><div class="r">Model X</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div><div class="s" data-l="ja">全モデルイヤー対応</div><div class="s" data-l="it">Tutti i model year</div></div>
+      <div class="mkc"><div class="r">Model Y</div><div class="s" data-l="hant">全年式</div><div class="s" data-l="hans">全年式</div><div class="s" data-l="en">All model years</div><div class="s" data-l="ja">全モデルイヤー対応</div><div class="s" data-l="it">Tutti i model year</div></div>
     </div>
   </div>
 </section>
@@ -320,53 +325,53 @@
 
     <h2 data-l="hant">270 — 一套系統，一個基準</h2>
     <h2 data-l="hans">270 — 一套系统，一个基准</h2>
-    <h2 data-l="en">270 — one system, one reference</h2>
+    <h2 data-l="en">270 — one system, one reference</h2><h2 data-l="ja">270 — ひとつのシステム、ひとつの基準</h2><h2 data-l="it">270 — un sistema, un riferimento</h2>
 
     <p class="lede" data-l="hant">我們只賣一套產品。不分等級，不分入門與旗艦——因為決定聲音的從來不是價格帶，而是有沒有把每一個環節做完。</p>
     <p class="lede" data-l="hans">我们只卖一套产品。不分等级，不分入门与旗舰——因为决定声音的从来不是价格带，而是有没有把每一个环节做完。</p>
-    <p class="lede" data-l="en">We sell one system. No tiers, no entry model, no flagship — because what decides the sound was never the price band. It is whether every stage was actually finished.</p>
+    <p class="lede" data-l="en">We sell one system. No tiers, no entry model, no flagship — because what decides the sound was never the price band. It is whether every stage was actually finished.</p><p class="lede" data-l="ja">私たちが売るシステムはひとつだけ。グレードも、エントリーもフラッグシップもありません——音を決めるのは価格帯ではなく、すべての工程を最後までやり切ったかどうかだからです。</p><p class="lede" data-l="it">Vendiamo un solo sistema. Niente livelli, niente versione base, niente ammiraglia — perché a decidere il suono non è mai stata la fascia di prezzo, ma l’aver portato a termine ogni singola fase.</p>
 
     <p class="body" data-l="hant">270 是國際音質評分表的滿分。沒有人拿到過滿分——歷屆冠軍大約落在八成上下。我們用這個數字命名，不是宣稱成績，而是標示方向：一個明確的、公開的、可被查核的基準。這正是「律呂」二字的本義。</p>
     <p class="body" data-l="hans">270 是国际音质评分表的满分。没有人拿到过满分——历届冠军大约落在八成上下。我们用这个数字命名，不是宣称成绩，而是标示方向：一个明确的、公开的、可被查核的基准。这正是「律吕」二字的本义。</p>
-    <p class="body" data-l="en">270 is the maximum on the international sound-quality scoresheet. Nobody has ever reached it — winners historically land around eighty percent. We use the number to name a direction, not a result: a defined, published, checkable reference. Which is precisely what the characters 律呂 have always meant.</p>
+    <p class="body" data-l="en">270 is the maximum on the international sound-quality scoresheet. Nobody has ever reached it — winners historically land around eighty percent. We use the number to name a direction, not a result: a defined, published, checkable reference. Which is precisely what the characters 律呂 have always meant.</p><p class="body" data-l="ja">270 は国際的な音質採点表の満点です。満点を取った者はいません——歴代チャンピオンでもおよそ 8 割前後。この数字を名に冠するのは成績の主張ではなく、方向の明示です。定義され、公開され、検証できる基準。それこそが「律呂」という言葉の本義です。</p><p class="body" data-l="it">270 è il massimo della scheda internazionale di valutazione della qualità sonora. Nessuno l’ha mai raggiunto — i campioni storicamente si fermano attorno all’ottanta per cento. Usiamo questo numero per dare un nome a una direzione, non a un risultato: un riferimento definito, pubblico, verificabile. Che è esattamente il significato originario dei caratteri 律呂.</p>
 
     <table class="spec">
       <thead>
         <tr>
-          <th data-l="hant">項目</th><th data-l="hans">项目</th><th data-l="en">Stage</th>
-          <th data-l="hant">內容</th><th data-l="hans">内容</th><th data-l="en">Scope</th>
+          <th data-l="hant">項目</th><th data-l="hans">项目</th><th data-l="en">Stage</th><th data-l="ja">項目</th><th data-l="it">Fase</th>
+          <th data-l="hant">內容</th><th data-l="hans">内容</th><th data-l="en">Scope</th><th data-l="ja">内容</th><th data-l="it">Contenuto</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td data-l="hant">前聲場</td><td data-l="hans">前声场</td><td data-l="en">Front stage</td>
+          <td data-l="hant">前聲場</td><td data-l="hans">前声场</td><td data-l="en">Front stage</td><td data-l="ja">フロントステージ</td><td data-l="it">Fronte sonoro</td>
           <td data-l="hant">全主動三分頻。每一個單體獨立擴大、獨立延遲、獨立濾波，訊號路徑上沒有被動分音器。</td>
           <td data-l="hans">全主动三分频。每一个单体独立放大、独立延迟、独立滤波，信号路径上没有被动分音器。</td>
-          <td data-l="en">Fully active three-way. Every driver individually amplified, delayed and filtered. No passive crossover anywhere in the signal path.</td>
+          <td data-l="en">Fully active three-way. Every driver individually amplified, delayed and filtered. No passive crossover anywhere in the signal path.</td><td data-l="ja">フルアクティブ 3 ウェイ。全ユニットを個別に増幅・遅延・フィルタリング。信号経路にパッシブネットワークは存在しません。</td><td data-l="it">Tre vie completamente attive. Ogni driver amplificato, ritardato e filtrato singolarmente. Nessun crossover passivo in tutto il percorso del segnale.</td>
         </tr>
         <tr>
-          <td data-l="hant">低頻</td><td data-l="hans">低频</td><td data-l="en">Low frequency</td>
+          <td data-l="hant">低頻</td><td data-l="hans">低频</td><td data-l="en">Low frequency</td><td data-l="ja">低域</td><td data-l="it">Basse frequenze</td>
           <td data-l="hant">密閉式超低音，箱體容積依單體參數計算，隱藏安裝，不佔用行李廂空間。</td>
           <td data-l="hans">密闭式超低音，箱体容积依单体参数计算，隐藏安装，不占用行李厢空间。</td>
-          <td data-l="en">Sealed subwoofer, enclosure volume calculated from the driver's own parameters, concealed — no loss of luggage space.</td>
+          <td data-l="en">Sealed subwoofer, enclosure volume calculated from the driver's own parameters, concealed — no loss of luggage space.</td><td data-l="ja">密閉型サブウーファー。箱容積はユニットの実測パラメータから算出し、荷室を犠牲にしない隠蔽設置。</td><td data-l="it">Subwoofer in cassa chiusa, volume calcolato sui parametri del driver, installazione a scomparsa: nessuno spazio sottratto al bagagliaio.</td>
         </tr>
         <tr>
-          <td data-l="hant">腔體處理</td><td data-l="hans">腔体处理</td><td data-l="en">Cavity treatment</td>
+          <td data-l="hant">腔體處理</td><td data-l="hans">腔体处理</td><td data-l="en">Cavity treatment</td><td data-l="ja">ドア処理</td><td data-l="it">Trattamento delle portiere</td>
           <td data-l="hant">車門三層制震與氣密，把一個會漏氣的障板改造成接近密閉的聲學腔體。</td>
           <td data-l="hans">车门三层制震与气密，把一个会漏气的障板改造成接近密闭的声学腔体。</td>
-          <td data-l="en">Three-layer damping and sealing, turning a leaky baffle into something approaching a closed acoustic enclosure.</td>
+          <td data-l="en">Three-layer damping and sealing, turning a leaky baffle into something approaching a closed acoustic enclosure.</td><td data-l="ja">三層のデッドニングと気密化。空気の漏れるバッフルを、密閉に近い音響エンクロージャーへ作り替えます。</td><td data-l="it">Smorzamento su tre strati e sigillatura: una paratia che perde aria diventa qualcosa di molto vicino a una cassa acustica chiusa.</td>
         </tr>
         <tr>
-          <td data-l="hant">校正</td><td data-l="hans">校正</td><td data-l="en">Correction</td>
+          <td data-l="hant">校正</td><td data-l="hans">校正</td><td data-l="en">Correction</td><td data-l="ja">補正</td><td data-l="it">Correzione</td>
           <td data-l="hant">駕駛座聆聽位多點量測，擬合目標曲線，微秒級時間對齊，分頻點相位驗證。</td>
           <td data-l="hans">驾驶座聆听位多点测量，拟合目标曲线，微秒级时间对齐，分频点相位验证。</td>
-          <td data-l="en">Multi-point measurement at the listening seat, target-curve fitting, microsecond time alignment, phase verified across every crossover.</td>
+          <td data-l="en">Multi-point measurement at the listening seat, target-curve fitting, microsecond time alignment, phase verified across every crossover.</td><td data-l="ja">運転席リスニングポイントでの多点測定、ターゲットカーブへのフィッティング、マイクロ秒単位のタイムアライメント、全クロスオーバーでの位相検証。</td><td data-l="it">Misurazione multipunto al posto di guida, adattamento alla curva target, allineamento temporale al microsecondo, fase verificata su ogni crossover.</td>
         </tr>
         <tr>
-          <td data-l="hant">工藝</td><td data-l="hans">工艺</td><td data-l="en">Workmanship</td>
+          <td data-l="hant">工藝</td><td data-l="hans">工艺</td><td data-l="en">Workmanship</td><td data-l="ja">施工品質</td><td data-l="it">Esecuzione</td>
           <td data-l="hant">全程無損。不剪斷任何原車訊號線，原廠件完整保留，隨時可復原。</td>
           <td data-l="hans">全程无损。不剪断任何原车信号线，原厂件完整保留，随时可复原。</td>
-          <td data-l="en">Fully reversible. No factory signal conductor is cut; every original part is retained.</td>
+          <td data-l="en">Fully reversible. No factory signal conductor is cut; every original part is retained.</td><td data-l="ja">完全可逆。純正の信号線は一本も切断せず、純正部品はすべて保管。いつでも原状回復できます。</td><td data-l="it">Completamente reversibile. Nessun conduttore di segnale originale viene tagliato; ogni componente di fabbrica viene conservato.</td>
         </tr>
       </tbody>
     </table>
@@ -380,43 +385,43 @@
 
     <h2 data-l="hant">施工，決定量測站不站得住</h2>
     <h2 data-l="hans">施工，决定测量站不站得住</h2>
-    <h2 data-l="en">The install decides whether the measurement holds</h2>
+    <h2 data-l="en">The install decides whether the measurement holds</h2><h2 data-l="ja">施工が、測定の成立を決める</h2><h2 data-l="it">È l’installazione a decidere se la misura regge</h2>
 
     <p class="lede" data-l="hant">安裝不是裝飾。一顆沒鎖緊的單體、一處漏氣的墊圈、一條與電源並行的訊號線——任何一項都會讓後面所有的運算失去意義。所以我們把施工當成量測的一部分，而不是量測之前的雜事。</p>
     <p class="lede" data-l="hans">安装不是装饰。一颗没锁紧的单体、一处漏气的垫圈、一条与电源并行的信号线——任何一项都会让后面所有的运算失去意义。所以我们把施工当成测量的一部分，而不是测量之前的杂事。</p>
-    <p class="lede" data-l="en">Installation is not decoration. One driver that isn't torqued down, one spacer that leaks air, one signal cable run alongside the power feed — any of these makes everything computed afterwards meaningless. So we treat the fitting as part of the measurement, not as chores that precede it.</p>
+    <p class="lede" data-l="en">Installation is not decoration. One driver that isn't torqued down, one spacer that leaks air, one signal cable run alongside the power feed — any of these makes everything computed afterwards meaningless. So we treat the fitting as part of the measurement, not as chores that precede it.</p><p class="lede" data-l="ja">取り付けは飾りではありません。締め切れていないユニットひとつ、空気の漏れるスペーサーひとつ、電源と並走する信号線一本——どれかひとつで、その後の計算はすべて無意味になります。だから私たちは施工を、測定の前の雑務ではなく、測定の一部として扱います。</p><p class="lede" data-l="it">L’installazione non è decorazione. Un driver non serrato, uno spessore che perde aria, un cavo di segnale che corre parallelo all’alimentazione — ognuno di questi rende privo di senso tutto ciò che verrà calcolato dopo. Per questo trattiamo il montaggio come parte della misura, non come una faccenda che la precede.</p>
 
     <div class="steps">
       <div class="step">
-        <div class="n" data-l="hant">第一日</div><div class="n" data-l="hans">第一日</div><div class="n" data-l="en">Day One</div>
-        <h3 data-l="hant">拆卸與腔體</h3><h3 data-l="hans">拆卸与腔体</h3><h3 data-l="en">Strip &amp; cavity</h3>
+        <div class="n" data-l="hant">第一日</div><div class="n" data-l="hans">第一日</div><div class="n" data-l="en">Day One</div><div class="n" data-l="ja">1 日目</div><div class="n" data-l="it">Giorno uno</div>
+        <h3 data-l="hant">拆卸與腔體</h3><h3 data-l="hans">拆卸与腔体</h3><h3 data-l="en">Strip &amp; cavity</h3><h3 data-l="ja">分解とドア防振</h3><h3 data-l="it">Smontaggio e trattamento</h3>
         <p data-l="hant">內飾無損拆卸，原廠件全數保留。車門施以三層處理：外鐵皮制震、內鐵皮孔洞封閉、飾板吸音。完成後敲擊門板應為沉悶實聲，無金屬殘響。</p>
         <p data-l="hans">内饰无损拆卸，原厂件全数保留。车门施以三层处理：外铁皮制震、内铁皮孔洞封闭、饰板吸音。完成后敲击门板应为沉闷实声，无金属残响。</p>
-        <p data-l="en">Trim removed without damage, every original part retained. Doors receive three layers: outer-skin damping, inner-skin aperture sealing, absorption behind the trim. Struck afterwards, the door should sound dead — no metallic ring.</p>
+        <p data-l="en">Trim removed without damage, every original part retained. Doors receive three layers: outer-skin damping, inner-skin aperture sealing, absorption behind the trim. Struck afterwards, the door should sound dead — no metallic ring.</p><p data-l="ja">内装を無傷で分解し、純正部品はすべて保管。ドアには三層処理を施します——アウターパネルの制振、インナーパネルの開口封止、内張り裏の吸音。完了後にドアを叩けば、金属の残響のない、鈍く詰まった音がするはずです。</p><p data-l="it">Rivestimenti rimossi senza danni, ogni pezzo originale conservato. Le portiere ricevono tre strati: smorzamento della lamiera esterna, sigillatura delle aperture su quella interna, assorbente dietro il pannello. A lavoro finito, la portiera battuta deve suonare sorda — nessuna risonanza metallica.</p>
       </div>
       <div class="step">
-        <div class="n" data-l="hant">第一日</div><div class="n" data-l="hans">第一日</div><div class="n" data-l="en">Day One</div>
-        <h3 data-l="hant">電源與佈線</h3><h3 data-l="hans">电源与布线</h3><h3 data-l="en">Power &amp; routing</h3>
+        <div class="n" data-l="hant">第一日</div><div class="n" data-l="hans">第一日</div><div class="n" data-l="en">Day One</div><div class="n" data-l="ja">1 日目</div><div class="n" data-l="it">Giorno uno</div>
+        <h3 data-l="hant">電源與佈線</h3><h3 data-l="hans">电源与布线</h3><h3 data-l="en">Power &amp; routing</h3><h3 data-l="ja">電源と配線</h3><h3 data-l="it">Alimentazione e cablaggio</h3>
         <p data-l="hant">主保險絲設於距電瓶正極四十公分內，每一路元件正極獨立保險，安培值依線徑核算。強弱電分側走線，不可避免的交會處以九十度垂直穿越。</p>
         <p data-l="hans">主保险丝设于距电瓶正极四十厘米内，每一路元件正极独立保险，安培值依线径核算。强弱电分侧走线，不可避免的交会处以九十度垂直穿越。</p>
-        <p data-l="en">Main fuse within forty centimetres of the battery post; every component positive individually fused, ratings calculated against conductor gauge. Power and signal run on opposite sides, crossing only at ninety degrees.</p>
+        <p data-l="en">Main fuse within forty centimetres of the battery post; every component positive individually fused, ratings calculated against conductor gauge. Power and signal run on opposite sides, crossing only at ninety degrees.</p><p data-l="ja">メインヒューズはバッテリー端子から 40cm 以内。各機器のプラス側は個別にヒューズを設け、容量は線径から算出します。電源系と信号系は左右に分離して配線し、避けられない交差は 90 度の直交で通します。</p><p data-l="it">Fusibile principale entro quaranta centimetri dal polo della batteria; ogni positivo protetto da fusibile dedicato, con taratura calcolata sulla sezione del conduttore. Potenza e segnale corrono su lati opposti e si incrociano solo a novanta gradi.</p>
       </div>
       <div class="step">
-        <div class="n" data-l="hant">第二日</div><div class="n" data-l="hans">第二日</div><div class="n" data-l="en">Day Two</div>
-        <h3 data-l="hant">安裝與驗證</h3><h3 data-l="hans">安装与验证</h3><h3 data-l="en">Fit &amp; verify</h3>
+        <div class="n" data-l="hant">第二日</div><div class="n" data-l="hans">第二日</div><div class="n" data-l="en">Day Two</div><div class="n" data-l="ja">2 日目</div><div class="n" data-l="it">Giorno due</div>
+        <h3 data-l="hant">安裝與驗證</h3><h3 data-l="hans">安装与验证</h3><h3 data-l="en">Fit &amp; verify</h3><h3 data-l="ja">取り付けと検証</h3><h3 data-l="it">Montaggio e verifica</h3>
         <p data-l="hant">單體以金屬或樺木墊圈剛性耦合，接合面塗聲學氣密膠。端子全數液壓冷壓——車內不留任何銲錫接點，因為長期震動會讓焊錫脆裂。通電前逐一驗證絕對極性。</p>
         <p data-l="hans">单体以金属或桦木垫圈刚性耦合，接合面涂声学气密胶。端子全数液压冷压——车内不留任何焊锡接点，因为长期震动会让焊锡脆裂。通电前逐一验证绝对极性。</p>
-        <p data-l="en">Drivers rigidly coupled through alloy or birch spacers, mating faces sealed acoustically. Every termination hydraulically crimped — no soldered joint remains in the vehicle, because vibration embrittles solder. Absolute polarity verified on every driver before power-up.</p>
+        <p data-l="en">Drivers rigidly coupled through alloy or birch spacers, mating faces sealed acoustically. Every termination hydraulically crimped — no soldered joint remains in the vehicle, because vibration embrittles solder. Absolute polarity verified on every driver before power-up.</p><p data-l="ja">ユニットは金属またはバーチ材スペーサーで剛結合し、接合面には音響用シーラントを塗布。端子はすべて油圧圧着——車内にハンダ接点は一切残しません。長期振動はハンダを脆化させるからです。通電前に全ユニットの絶対極性を検証します。</p><p data-l="it">Driver accoppiati rigidamente con spessori in metallo o betulla, superfici di contatto sigillate acusticamente. Ogni terminale crimpato a pressione idraulica — in vettura non resta alcuna saldatura, perché la vibrazione prolungata infragilisce lo stagno. Polarità assoluta verificata su ogni driver prima dell’accensione.</p>
       </div>
     </div>
 
     <div class="pull" data-l="hant">全程無損。不剪斷任何一條原車訊號線，隨時可以完全復原。</div>
     <div class="pull" data-l="hans">全程无损。不剪断任何一条原车信号线，随时可以完全复原。</div>
-    <div class="pull" data-l="en">Entirely reversible. Not one factory signal conductor is cut; the car can be returned to standard at any time.</div>
+    <div class="pull" data-l="en">Entirely reversible. Not one factory signal conductor is cut; the car can be returned to standard at any time.</div><div class="pull" data-l="ja">全工程が可逆。純正の信号線は一本も切らず、いつでも完全に原状回復できます。</div><div class="pull" data-l="it">Interamente reversibile. Nessun conduttore di segnale originale viene tagliato; l’auto può tornare di serie in qualsiasi momento.</div>
 
     <p class="body" data-l="hant">交車時，我們附上完整的系統圖與配線圖——每一路的線徑、每一顆保險絲的安培值、每一個分頻點與延遲值，全部列明。你會確切知道車上裝了什麼、怎麼裝的。</p>
     <p class="body" data-l="hans">交车时，我们附上完整的系统图与配线图——每一路的线径、每一颗保险丝的安培值、每一个分频点与延迟值，全部列明。你会确切知道车上装了什么、怎么装的。</p>
-    <p class="body" data-l="en">At handover you receive the full system and wiring schematics — every conductor gauge, every fuse rating, every crossover point and delay value, documented. You will know exactly what is in the car and exactly how it was fitted.</p>
+    <p class="body" data-l="en">At handover you receive the full system and wiring schematics — every conductor gauge, every fuse rating, every crossover point and delay value, documented. You will know exactly what is in the car and exactly how it was fitted.</p><p class="body" data-l="ja">納車時には、完全なシステム図と配線図をお渡しします——全配線の線径、全ヒューズの容量、全クロスオーバー周波数と遅延値まで、すべて明記。車に何が、どう取り付けられているかを、正確に把握できます。</p><p class="body" data-l="it">Alla consegna ricevi gli schemi completi di sistema e cablaggio: ogni sezione dei conduttori, ogni taratura dei fusibili, ogni frequenza di crossover e valore di ritardo, tutto documentato. Saprai esattamente cosa c’è nella tua auto e come è stato installato.</p>
   </div>
 </section>
 
@@ -427,33 +432,33 @@
 
     <h2 data-l="hant">量測 · 運算 · 驗證</h2>
     <h2 data-l="hans">测量 · 运算 · 验证</h2>
-    <h2 data-l="en">Measure · Compute · Verify</h2>
+    <h2 data-l="en">Measure · Compute · Verify</h2><h2 data-l="ja">測定 · 演算 · 検証</h2><h2 data-l="it">Misurare · Calcolare · Verificare</h2>
 
     <p class="lede" data-l="hant">我們不憑耳朵，不憑玄學，不憑貼在喇叭上的名字。低頻的駐波在哪裡堆積、高頻被哪一片玻璃反射、左右差了幾微秒——這些都不是感覺，是可以被畫成圖、被驗證、被重做的事實。</p>
     <p class="lede" data-l="hans">我们不凭耳朵，不凭玄学，不凭贴在喇叭上的名字。低频的驻波在哪里堆积、高频被哪一片玻璃反射、左右差了几微秒——这些都不是感觉，是可以被画成图、被验证、被重做的事实。</p>
-    <p class="lede" data-l="en">Not by ear, not by folklore, not by the name printed on the driver. Where the standing waves pile up, which pane of glass is reflecting the treble, how many microseconds separate left from right — none of that is opinion. It is fact that can be plotted, verified and redone.</p>
+    <p class="lede" data-l="en">Not by ear, not by folklore, not by the name printed on the driver. Where the standing waves pile up, which pane of glass is reflecting the treble, how many microseconds separate left from right — none of that is opinion. It is fact that can be plotted, verified and redone.</p><p class="lede" data-l="ja">耳に頼らず、オカルトに頼らず、ユニットに印刷された名前にも頼りません。低域の定在波がどこに溜まるか、高域をどのガラスが反射しているか、左右が何マイクロ秒ずれているか——これらは感覚ではなく、図に描け、検証でき、再現できる事実です。</p><p class="lede" data-l="it">Non a orecchio, non per folklore, non per il nome stampato sul driver. Dove si accumulano le onde stazionarie, quale vetro riflette gli acuti, quanti microsecondi separano sinistra e destra — niente di tutto questo è un’opinione. Sono fatti che si possono tracciare, verificare e rifare.</p>
 
     <div class="steps">
       <div class="step">
         <div class="n">01</div>
-        <h3 data-l="hant">量測</h3><h3 data-l="hans">测量</h3><h3 data-l="en">Measure</h3>
+        <h3 data-l="hant">量測</h3><h3 data-l="hans">测量</h3><h3 data-l="en">Measure</h3><h3 data-l="ja">測定</h3><h3 data-l="it">Misurare</h3>
         <p data-l="hant">校正過的量測麥克風置於駕駛座耳位，多點採集車廂真實的脈衝響應。第一次看到自己車裡那條曲線，多數人會沉默一下。</p>
         <p data-l="hans">校正过的测量麦克风置于驾驶座耳位，多点采集车厢真实的脉冲响应。第一次看到自己车里那条曲线，多数人会沉默一下。</p>
-        <p data-l="en">A calibrated microphone at ear height in the driver's seat captures the cabin's real impulse response. Most people go quiet the first time they see their own car's curve.</p>
+        <p data-l="en">A calibrated microphone at ear height in the driver's seat captures the cabin's real impulse response. Most people go quiet the first time they see their own car's curve.</p><p data-l="ja">校正済み測定マイクを運転席の耳の高さに置き、車室の実際のインパルス応答を多点で採取します。自分の車の曲線を初めて見たとき、多くの人はしばらく黙り込みます。</p><p data-l="it">Un microfono calibrato all’altezza dell’orecchio, al posto di guida, cattura la vera risposta all’impulso dell’abitacolo, su più punti. La prima volta che vedono la curva della propria auto, quasi tutti restano in silenzio.</p>
       </div>
       <div class="step">
         <div class="n">02</div>
-        <h3 data-l="hant">運算</h3><h3 data-l="hans">运算</h3><h3 data-l="en">Compute</h3>
+        <h3 data-l="hant">運算</h3><h3 data-l="hans">运算</h3><h3 data-l="en">Compute</h3><h3 data-l="ja">演算</h3><h3 data-l="it">Calcolare</h3>
         <p data-l="hant">將實測結果對照目標曲線，運算出濾波器，並以微秒為單位補償各單體到雙耳的路徑差。目標不是修成一條直線——那會難聽。</p>
         <p data-l="hans">将实测结果对照目标曲线，运算出滤波器，并以微秒为单位补偿各单体到双耳的路径差。目标不是修成一条直线——那会难听。</p>
-        <p data-l="en">Filters are computed against a target curve, and path differences compensated in microseconds. The goal is not a ruler-flat line — that sounds sterile.</p>
+        <p data-l="en">Filters are computed against a target curve, and path differences compensated in microseconds. The goal is not a ruler-flat line — that sounds sterile.</p><p data-l="ja">実測結果をターゲットカーブと照合してフィルタを算出し、各ユニットから両耳までの経路差をマイクロ秒単位で補償します。目標は定規のような直線ではありません——それは味気ない音になります。</p><p data-l="it">I filtri vengono calcolati rispetto a una curva target, e le differenze di percorso compensate in microsecondi. L’obiettivo non è una linea piatta come un righello — suonerebbe sterile.</p>
       </div>
       <div class="step">
         <div class="n">03</div>
-        <h3 data-l="hant">驗證</h3><h3 data-l="hans">验证</h3><h3 data-l="en">Verify</h3>
+        <h3 data-l="hant">驗證</h3><h3 data-l="hans">验证</h3><h3 data-l="en">Verify</h3><h3 data-l="ja">検証</h3><h3 data-l="it">Verificare</h3>
         <p data-l="hant">校正後重測，並在較大音量再測一次——很多系統小聲時漂亮，大聲就散了。每一次交車都附上前後對照曲線。</p>
         <p data-l="hans">校正后重测，并在较大音量再测一次——很多系统小声时漂亮，大声就散了。每一次交车都附上前后对照曲线。</p>
-        <p data-l="en">Re-measured after correction, then again at elevated volume — many systems look beautiful quiet and fall apart loud. Every handover includes the before-and-after plots.</p>
+        <p data-l="en">Re-measured after correction, then again at elevated volume — many systems look beautiful quiet and fall apart loud. Every handover includes the before-and-after plots.</p><p data-l="ja">補正後に再測定し、さらに大音量でもう一度測ります——小音量では美しく、大音量で崩れるシステムは少なくありません。納車時には必ず前後比較の曲線を添付します。</p><p data-l="it">Si rimisura dopo la correzione, e poi ancora a volume sostenuto — molti impianti sono splendidi a basso volume e crollano quando si alza. Ogni consegna include i grafici prima/dopo.</p>
       </div>
     </div>
   </div>
@@ -466,26 +471,26 @@
 
     <h2 data-l="hant">律呂軒</h2>
     <h2 data-l="hans">律吕轩</h2>
-    <h2 data-l="en">律呂軒 — Lǜlǚ Xuān</h2>
+    <h2 data-l="en">律呂軒 — Lǜlǚ Xuān</h2><h2 data-l="ja">律呂軒（りつりょけん）</h2><h2 data-l="it">律呂軒 — Lǜlǚ Xuān</h2>
 
     <p class="lede" data-l="hant">我們做的事，古人早就命名過了。只是我們手上的律，換成了一條量測出來的曲線。</p>
     <p class="lede" data-l="hans">我们做的事，古人早就命名过了。只是我们手上的律，换成了一条测量出来的曲线。</p>
-    <p class="lede" data-l="en">What we do already had a name, long before us. Only the standard has changed — ours is a measured curve.</p>
+    <p class="lede" data-l="en">What we do already had a name, long before us. Only the standard has changed — ours is a measured curve.</p><p class="lede" data-l="ja">私たちの仕事には、遥か昔から名前がありました。変わったのは基準だけ——私たちの律は、測定された一本の曲線です。</p><p class="lede" data-l="it">Ciò che facciamo aveva già un nome, molto prima di noi. È cambiato solo il campione di riferimento: il nostro è una curva misurata.</p>
 
     <div class="etym">
       <div class="glyph">
-        <div class="ch" data-l="hant">律呂</div><div class="ch" data-l="hans">律吕</div><div class="ch" data-l="en">律呂</div>
+        <div class="ch" data-l="hant">律呂</div><div class="ch" data-l="hans">律吕</div><div class="ch" data-l="en">律呂</div><div class="ch" data-l="ja">律呂</div><div class="ch" data-l="it">律呂 · Lǜlǚ</div>
         <div class="py">Lǜ Lǚ</div>
         <p data-l="hant">六律六呂，中國古代的十二音標準。兩千年前，每一件樂器都要對著它校準。它不是一種聲音，是判斷聲音的依據。</p>
         <p data-l="hans">六律六吕，中国古代的十二音标准。两千年前，每一件乐器都要对着它校准。它不是一种声音，是判断声音的依据。</p>
-        <p data-l="en">The twelve-pitch system of ancient China — the standard every instrument was tuned against. It was never a sound in itself. It was the basis on which sound was judged.</p>
+        <p data-l="en">The twelve-pitch system of ancient China — the standard every instrument was tuned against. It was never a sound in itself. It was the basis on which sound was judged.</p><p data-l="ja">六律六呂——古代中国の十二律。二千年前、すべての楽器はこれに合わせて調律されました。それ自体は音ではなく、音を判断するための基準です。</p><p data-l="it">Il sistema delle dodici altezze dell’antica Cina — il campione su cui ogni strumento veniva accordato. Non era un suono in sé: era il criterio con cui il suono veniva giudicato.</p>
       </div>
       <div class="glyph">
         <div class="ch">軒</div>
         <div class="py">Xuān</div>
         <p data-l="hant">本義是有帷幕的車，後來才引申為有窗的雅室。所以「律呂軒」同時是調律的雅室，與調律的車。</p>
         <p data-l="hans">本义是有帷幕的车，后来才引申为有窗的雅室。所以「律吕轩」同时是调律的雅室，与调律的车。</p>
-        <p data-l="en">Originally a curtained carriage; only later a windowed study. So 律呂軒 is at once the room where pitch is set — and the carriage in which it is set.</p>
+        <p data-l="en">Originally a curtained carriage; only later a windowed study. So 律呂軒 is at once the room where pitch is set — and the carriage in which it is set.</p><p data-l="ja">「軒」の本義は帳のある車。のちに窓のある雅な部屋を指すようになりました。だから「律呂軒」は、律を調える部屋であると同時に、律を調える車でもあるのです。</p><p data-l="it">In origine una carrozza con tende; solo più tardi uno studio con finestre. Così 律呂軒 è insieme la stanza in cui si accorda — e la carrozza in cui lo si fa.</p>
       </div>
     </div>
   </div>
@@ -498,11 +503,11 @@
 
     <h2 data-l="hant">手記</h2>
     <h2 data-l="hans">手记</h2>
-    <h2 data-l="en">Journal</h2>
+    <h2 data-l="en">Journal</h2><h2 data-l="ja">手記</h2><h2 data-l="it">Diario</h2>
 
     <p class="lede" data-l="hant">這個品牌不是先有生意、再找故事。它是從幾個具體的問題開始的，而那些問題的答案，最後變成了我們做事的方法。</p>
     <p class="lede" data-l="hans">这个品牌不是先有生意、再找故事。它是从几个具体的问题开始的，而那些问题的答案，最后变成了我们做事的方法。</p>
-    <p class="lede" data-l="en">This didn't start as a business looking for a story. It started with a few specific questions, and the answers became the way we work.</p>
+    <p class="lede" data-l="en">This didn't start as a business looking for a story. It started with a few specific questions, and the answers became the way we work.</p><p class="lede" data-l="ja">このブランドは、商売が先にあって物語を探したのではありません。いくつかの具体的な問いから始まり、その答えが、そのまま私たちの仕事のやり方になりました。</p><p class="lede" data-l="it">Questo marchio non è nato come un’azienda in cerca di una storia. È nato da alcune domande precise, e le risposte sono diventate il nostro modo di lavorare.</p>
 
     <div class="arts">
       <details class="art">
@@ -510,7 +515,7 @@
           <span class="no">01</span>
           <span class="t" data-l="hant">護城河不在硬體裡</span>
           <span class="t" data-l="hans">护城河不在硬件里</span>
-          <span class="t" data-l="en">The moat was never in the hardware</span>
+          <span class="t" data-l="en">The moat was never in the hardware</span><span class="t" data-l="ja">参入障壁はハードウェアの中にはなかった</span><span class="t" data-l="it">Il fossato non è mai stato nell’hardware</span>
           <span class="plus">＋</span>
         </summary>
         <div class="txt">
@@ -528,7 +533,7 @@
             <p>Take apart an expensive factory audio system and what's inside is less mysterious than the price suggests. Magnets, voice coils, diaphragms — the manufacturing is mature, and more plants can do it well than you would guess.</p>
             <p>What stays locked is the layer you cannot see: the signal-processing algorithms, and the tuning done for one specific model and one specific cabin. That isn't a part. It's knowledge. It never appears in a teardown or on a spec sheet.</p>
             <p>Once that lands, the question changes. It stops being "which driver is better" and becomes "where are this cabin's flaws, and how do I compute them away." The first is a purchasing question. The second is an engineering one — and engineering problems can be solved.</p>
-          </div>
+          </div><div data-l="ja"><p>高価な純正オーディオを分解してみれば、中身は価格が示唆するほど神秘的ではありません。マグネット、ボイスコイル、振動板——製造技術はすでに成熟しており、作れる工場は想像より多いのです。</p><p>閉ざされているのは見えない層です。信号処理のアルゴリズムと、特定の車種・特定の車室のための専用チューニング。それは部品ではなく、知識です。分解図にも、スペック表にも現れません。</p><p>そこに気づくと、問いが変わります。「どのスピーカーが良いか」ではなく、「この車室の欠陥はどこにあり、どう計算で消すか」。前者は購買の問題、後者はエンジニアリングの問題——そしてエンジニアリングの問題は、解けるのです。</p></div><div data-l="it"><p>Smonta un impianto audio di fabbrica molto costoso e ciò che trovi dentro è meno misterioso di quanto il prezzo suggerisca. Magneti, bobine, membrane: la produzione è matura, e gli stabilimenti in grado di farla bene sono più di quanti immagini.</p><p>Ciò che resta chiuso è lo strato che non si vede: gli algoritmi di elaborazione del segnale e la taratura fatta per un modello preciso, per un abitacolo preciso. Non è un componente: è conoscenza. Non compare in nessun teardown né in nessuna scheda tecnica.</p><p>Quando lo capisci, la domanda cambia. Non è più «quale altoparlante è migliore», ma «dove sono i difetti di questo abitacolo, e come li elimino con il calcolo». La prima è una questione d’acquisto. La seconda è ingegneria — e i problemi di ingegneria si possono risolvere.</p></div>
         </div>
       </details>
 
@@ -537,7 +542,7 @@
           <span class="no">02</span>
           <span class="t" data-l="hant">安靜，是一種奢侈</span>
           <span class="t" data-l="hans">安静，是一种奢侈</span>
-          <span class="t" data-l="en">Silence is the luxury</span>
+          <span class="t" data-l="en">Silence is the luxury</span><span class="t" data-l="ja">静けさこそ、贅沢である</span><span class="t" data-l="it">Il silenzio è il vero lusso</span>
           <span class="plus">＋</span>
         </summary>
         <div class="txt">
@@ -558,7 +563,7 @@
             <p>Once the engine noise is gone, the cabin becomes a space that can be redefined. It stops being transport and becomes the one corner of the city that genuinely belongs to you.</p>
             <p>But silence is unforgiving. With no engine to mask it, every trace of system noise, every distortion, every phase error that wasn't properly set has nowhere left to hide. That is the EV's gift to audio, and equally its examination.</p>
             <p>We like that examination — because for the first time it makes the gap between careful work and ordinary work impossible to miss.</p>
-          </div>
+          </div><div data-l="ja"><p>電気自動車の最も魅力的な点は、加速の速さではありません。その静けさです。</p><p>エンジン音が消えたとき、車室は再定義できる空間に変わります。単なる移動手段ではなく、都市の中で本当に自分だけのものと呼べる、唯一の場所になるのです。</p><p>しかし静けさは容赦がありません。エンジン音のマスキングがなければ、システムのわずかなノイズ、歪み、合わせ損ねた位相のすべてに、隠れ場所はありません。それは EV がオーディオに与えた贈り物であり、同時に突きつけた試験でもあります。</p><p>私たちはこの試験が好きです。丁寧な仕事と平凡な仕事の差が、初めてこれほど明白になるのですから。</p></div><div data-l="it"><p>La cosa più affascinante di un’auto elettrica non è mai stata l’accelerazione. È il silenzio.</p><p>Quando il rumore del motore scompare, l’abitacolo diventa uno spazio da ridefinire. Smette di essere un mezzo di trasporto e diventa l’unico angolo della città che ti appartiene davvero.</p><p>Ma il silenzio non perdona. Senza il motore a mascherarli, ogni residuo di rumore del sistema, ogni distorsione, ogni fase regolata male non ha più dove nascondersi. È il regalo che l’elettrico fa all’audio, e insieme l’esame a cui lo sottopone.</p><p>A noi quell’esame piace: per la prima volta rende impossibile non vedere la distanza tra il lavoro accurato e il lavoro ordinario.</p></div>
         </div>
       </details>
 
@@ -567,7 +572,7 @@
           <span class="no">03</span>
           <span class="t" data-l="hant">為什麼我們不承諾超越任何人</span>
           <span class="t" data-l="hans">为什么我们不承诺超越任何人</span>
-          <span class="t" data-l="en">Why we don't promise to beat anyone</span>
+          <span class="t" data-l="en">Why we don't promise to beat anyone</span><span class="t" data-l="ja">なぜ誰かに「勝つ」と約束しないのか</span><span class="t" data-l="it">Perché non promettiamo di battere nessuno</span>
           <span class="plus">＋</span>
         </summary>
         <div class="txt">
@@ -588,7 +593,7 @@
             <p>Other things can. This curve has an eight-decibel peak at forty hertz — that is a fact. After correction it measures two — also a fact. The channels were three-tenths of a millisecond apart, and once compensated the voice returns to centre — fact again.</p>
             <p>What we can hand you is the curve behind every decision. Whether it sounds better than some six-figure car is for you to judge, sitting in it, with your own ears.</p>
             <p>And where we're uncertain — where we haven't yet found the best answer for a particular band — we'll say so plainly. That's worth more than any adjective.</p>
-          </div>
+          </div><div data-l="ja"><p>この業界の常套句は「純正超え」「格上喰い」です。私たちはそう言いません。理由は単純で、検証できないからです。</p><p>検証できるのは別のことです。この曲線は 40Hz に 8dB のピークがある——これは事実。補正後は 2dB に収まった——これも事実。左右が 0.3 ミリ秒ずれていて、補償後にボーカルがセンターへ戻った——これも事実です。</p><p>私たちが渡せるのは、すべての判断の裏にある曲線です。それが何百万の高級車より良い音かどうかは、あなた自身が座り、あなた自身の耳で決めることです。</p><p>そして不確かな部分——ある帯域でまだ最良の解を見つけていない、というような場合——は、率直にそう言います。それはどんな形容詞よりも価値があります。</p></div><div data-l="it"><p>Le frasi preferite di questo settore sono «supera l’impianto di serie» e «suona come una classe superiore». Noi non le usiamo, per una ragione semplice: non si possono verificare.</p><p>Altre cose sì. Questa curva ha un picco di otto decibel a quaranta hertz — è un fatto. Dopo la correzione ne misura due — anche questo è un fatto. I canali erano sfalsati di tre decimi di millisecondo e, compensati, la voce torna al centro — di nuovo un fatto.</p><p>Quello che possiamo consegnarti è la curva dietro ogni decisione. Se poi suoni meglio di una vettura da centinaia di migliaia di euro, lo giudichi tu, seduto dentro, con le tue orecchie.</p><p>E dove siamo incerti — dove per una certa banda non abbiamo ancora trovato la soluzione migliore — lo diremo apertamente. Vale più di qualunque aggettivo.</p></div>
         </div>
       </details>
     </div>
@@ -602,23 +607,23 @@
 
     <h2 data-l="hant">我們沒有展廳</h2>
     <h2 data-l="hans">我们没有展厅</h2>
-    <h2 data-l="en">We don't have a showroom</h2>
+    <h2 data-l="en">We don't have a showroom</h2><h2 data-l="ja">ショールームはありません</h2><h2 data-l="it">Non abbiamo uno showroom</h2>
 
     <p class="lede" data-l="hant">一台裝好系統的 Tesla，就是我們的展廳、我們的樣品、我們全部的說服力。它開到你面前，你坐進去，聽完再決定。</p>
     <p class="lede" data-l="hans">一台装好系统的 Tesla，就是我们的展厅、我们的样品、我们全部的说服力。它开到你面前，你坐进去，听完再决定。</p>
-    <p class="lede" data-l="en">One Tesla with the system fitted is our showroom, our sample and our entire argument. It comes to you, you sit in it, and you decide after listening.</p>
+    <p class="lede" data-l="en">One Tesla with the system fitted is our showroom, our sample and our entire argument. It comes to you, you sit in it, and you decide after listening.</p><p class="lede" data-l="ja">システムを組み込んだ 1 台の Tesla が、私たちのショールームであり、サンプルであり、説得力のすべてです。あなたの前まで走っていき、あなたが座り、聴いてから決めてください。</p><p class="lede" data-l="it">Una Tesla con il sistema installato è il nostro showroom, il nostro campione e l’intero nostro argomento. Arriva davanti a te, ti siedi, ascolti, e poi decidi.</p>
 
     <p class="body" data-l="hant">而這件事之所以成立，正是因為我們只做 Tesla。一般音響店的示範車告訴不了你任何事——他的車跟你的車，車門容積不同、玻璃角度不同、座椅位置不同，聽起來當然不一樣。</p>
     <p class="body" data-l="hans">而这件事之所以成立，正是因为我们只做 Tesla。一般音响店的示范车告诉不了你任何事——他的车跟你的车，车门容积不同、玻璃角度不同、座椅位置不同，听起来当然不一样。</p>
-    <p class="body" data-l="en">And this only works because we work on one car. A general shop's demo vehicle tells you nothing useful — different door volume, different glass angle, different seating position. Of course it sounds different in yours.</p>
+    <p class="body" data-l="en">And this only works because we work on one car. A general shop's demo vehicle tells you nothing useful — different door volume, different glass angle, different seating position. Of course it sounds different in yours.</p><p class="body" data-l="ja">そしてこれが成立するのは、Tesla しか扱わないからです。一般店のデモカーは何も教えてくれません——その車とあなたの車では、ドア容積も、ガラスの角度も、シート位置も違う。聴こえ方が違って当然です。</p><p class="body" data-l="it">E funziona solo perché lavoriamo su una sola auto. La vettura dimostrativa di un negozio generalista non ti dice nulla di utile: volume delle portiere diverso, angoli dei vetri diversi, posizione di seduta diversa. È ovvio che nella tua suonerà in un altro modo.</p>
 
     <div class="pull" data-l="hant">你在示範車上聽到的，就是你車上會有的。</div>
     <div class="pull" data-l="hans">你在示范车上听到的，就是你车上会有的。</div>
-    <div class="pull" data-l="en">What you hear in the demo car is what you will have in yours.</div>
+    <div class="pull" data-l="en">What you hear in the demo car is what you will have in yours.</div><div class="pull" data-l="ja">デモカーで聴いた音が、そのままあなたの車の音になります。</div><div class="pull" data-l="it">Ciò che senti nell’auto dimostrativa è ciò che avrai nella tua.</div>
 
     <p class="body" data-l="hant">合作據點同理。一台裝好系統的 Tesla，就是一個據點——沒有租金，沒有裝潢，沒有庫存。要開展一個新城市，需要的是一台車、一位受訓過的技師，以及那套量測流程。</p>
     <p class="body" data-l="hans">合作据点同理。一台装好系统的 Tesla，就是一个据点——没有租金，没有装潢，没有库存。要开展一个新城市，需要的是一台车、一位受训过的技师，以及那套测量流程。</p>
-    <p class="body" data-l="en">Partner locations work the same way. One fitted Tesla is a location — no lease, no fit-out, no stock. Opening a new city takes a car, a trained technician, and the measurement protocol.</p>
+    <p class="body" data-l="en">Partner locations work the same way. One fitted Tesla is a location — no lease, no fit-out, no stock. Opening a new city takes a car, a trained technician, and the measurement protocol.</p><p class="body" data-l="ja">拠点も同じ理屈です。システムを組んだ Tesla が 1 台あれば、それが拠点——家賃なし、内装工事なし、在庫なし。新しい都市を開くのに必要なのは、1 台の車と、訓練を受けた 1 人の技師と、あの測定プロトコルだけです。</p><p class="body" data-l="it">I punti di collaborazione funzionano allo stesso modo. Una Tesla allestita è una sede: niente affitto, niente arredamento, niente magazzino. Per aprire una nuova città servono un’auto, un tecnico formato e il protocollo di misura.</p>
   </div>
 </section>
 
@@ -629,19 +634,19 @@
 
     <h2 data-l="hant">我們在找技師，不是找加盟商</h2>
     <h2 data-l="hans">我们在找技师，不是找加盟商</h2>
-    <h2 data-l="en">We're looking for technicians, not franchisees</h2>
+    <h2 data-l="en">We're looking for technicians, not franchisees</h2><h2 data-l="ja">探しているのは技師です。フランチャイジーではなく</h2><h2 data-l="it">Cerchiamo tecnici, non affiliati</h2>
 
     <p class="lede" data-l="hant">如果你手藝夠好，卻不想把時間花在租店面、打廣告、追客人、跟供應商殺價——那我們談的可能是同一件事。</p>
     <p class="lede" data-l="hans">如果你手艺够好，却不想把时间花在租店面、打广告、追客人、跟供应商杀价——那我们谈的可能是同一件事。</p>
-    <p class="lede" data-l="en">If your hands are good but you have no appetite for leases, advertising, chasing customers and haggling with suppliers — then we may be talking about the same thing.</p>
+    <p class="lede" data-l="en">If your hands are good but you have no appetite for leases, advertising, chasing customers and haggling with suppliers — then we may be talking about the same thing.</p><p class="lede" data-l="ja">腕は確かなのに、店舗の賃料や広告、客の追いかけ、仕入れ交渉に時間を使いたくない——そう思うなら、私たちは同じ話をしているのかもしれません。</p><p class="lede" data-l="it">Se le tue mani sono buone ma non hai voglia di spendere il tuo tempo tra affitti, pubblicità, clienti da rincorrere e fornitori con cui trattare — allora forse stiamo parlando della stessa cosa.</p>
 
     <div class="pull" data-l="hant">你負責安裝與調校。其餘的，我們處理。</div>
     <div class="pull" data-l="hans">你负责安装与调校。其余的，我们处理。</div>
-    <div class="pull" data-l="en">You do the installation and the tuning. We handle everything else.</div>
+    <div class="pull" data-l="en">You do the installation and the tuning. We handle everything else.</div><div class="pull" data-l="ja">あなたは施工と調整を。それ以外は、私たちが引き受けます。</div><div class="pull" data-l="it">Tu fai installazione e taratura. Al resto pensiamo noi.</div>
 
     <div class="split">
       <div class="half">
-        <h4 data-l="hant">你做的</h4><h4 data-l="hans">你做的</h4><h4 data-l="en">Your side</h4>
+        <h4 data-l="hant">你做的</h4><h4 data-l="hans">你做的</h4><h4 data-l="en">Your side</h4><h4 data-l="ja">あなたの側</h4><h4 data-l="it">Da parte tua</h4>
         <ul>
           <li data-l="hant">依照標準流程完成施工——隔音、佈線、單體安裝、電氣保護</li>
           <li data-l="hant">執行量測與調校，把每一台車修到目標曲線</li>
@@ -653,15 +658,15 @@
           <li data-l="hans">交车时附上前后对照曲线与完整系统图</li>
           <li data-l="hans">维持一台装好系统的 Tesla，作为你的示范车</li>
           <li data-l="hans">照流程走。这是唯一不能商量的一点</li>
-          <li data-l="en">Carry out the build to the standard protocol — damping, routing, driver fitting, electrical protection</li>
-          <li data-l="en">Run the measurement and tuning until the car meets the target curve</li>
-          <li data-l="en">Hand over with before-and-after plots and the full system schematic</li>
-          <li data-l="en">Keep one fitted Tesla as your demonstration car</li>
-          <li data-l="en">Follow the protocol. That is the one point not open to negotiation</li>
+          <li data-l="en">Carry out the build to the standard protocol — damping, routing, driver fitting, electrical protection</li><li data-l="ja">標準プロトコルに従った施工——防振、配線、ユニット取り付け、電気保護</li><li data-l="it">Eseguire l’allestimento secondo il protocollo standard: smorzamento, cablaggio, montaggio driver, protezione elettrica</li>
+          <li data-l="en">Run the measurement and tuning until the car meets the target curve</li><li data-l="ja">測定と調整を実施し、各車をターゲットカーブまで追い込む</li><li data-l="it">Eseguire misura e taratura fino a portare ogni auto sulla curva target</li>
+          <li data-l="en">Hand over with before-and-after plots and the full system schematic</li><li data-l="ja">納車時に前後比較曲線と完全なシステム図を添付する</li><li data-l="it">Consegnare con i grafici prima/dopo e lo schema completo del sistema</li>
+          <li data-l="en">Keep one fitted Tesla as your demonstration car</li><li data-l="ja">システムを組んだ Tesla を 1 台、デモカーとして維持する</li><li data-l="it">Mantenere una Tesla allestita come vettura dimostrativa</li>
+          <li data-l="en">Follow the protocol. That is the one point not open to negotiation</li><li data-l="ja">プロトコルに従うこと。これだけは交渉の余地がありません</li><li data-l="it">Seguire il protocollo. È l’unico punto non negoziabile</li>
         </ul>
       </div>
       <div class="half">
-        <h4 data-l="hant">我們做的</h4><h4 data-l="hans">我们做的</h4><h4 data-l="en">Our side</h4>
+        <h4 data-l="hant">我們做的</h4><h4 data-l="hans">我们做的</h4><h4 data-l="en">Our side</h4><h4 data-l="ja">私たちの側</h4><h4 data-l="it">Da parte nostra</h4>
         <ul>
           <li data-l="hant">品牌、網站、內容與客源開發</li>
           <li data-l="hant">訓練：量測流程、目標曲線、時間對齊、相位驗證</li>
@@ -675,28 +680,28 @@
           <li data-l="hans">系统图、配线图、检查表——所有文件系统</li>
           <li data-l="hans">分期付款方案对接与收款</li>
           <li data-l="hans">赛事参与所累积的技术与公信力</li>
-          <li data-l="en">Brand, site, content and customer acquisition</li>
-          <li data-l="en">Training: measurement protocol, target curves, time alignment, phase verification</li>
-          <li data-l="en">Equipment supply chain and consolidated purchasing</li>
-          <li data-l="en">System diagrams, wiring schematics, checklists — the entire document system</li>
-          <li data-l="en">Instalment facilities and collection</li>
-          <li data-l="en">The technical credibility that comes from competing</li>
+          <li data-l="en">Brand, site, content and customer acquisition</li><li data-l="ja">ブランド、サイト、コンテンツ、集客</li><li data-l="it">Marchio, sito, contenuti e acquisizione clienti</li>
+          <li data-l="en">Training: measurement protocol, target curves, time alignment, phase verification</li><li data-l="ja">研修：測定プロトコル、ターゲットカーブ、タイムアライメント、位相検証</li><li data-l="it">Formazione: protocollo di misura, curve target, allineamento temporale, verifica di fase</li>
+          <li data-l="en">Equipment supply chain and consolidated purchasing</li><li data-l="ja">機材のサプライチェーンと一括調達</li><li data-l="it">Filiera delle attrezzature e acquisti consolidati</li>
+          <li data-l="en">System diagrams, wiring schematics, checklists — the entire document system</li><li data-l="ja">システム図、配線図、チェックリスト——文書体系のすべて</li><li data-l="it">Schemi di sistema, schemi di cablaggio, checklist: l’intero sistema documentale</li>
+          <li data-l="en">Instalment facilities and collection</li><li data-l="ja">分割払いスキームの接続と回収</li><li data-l="it">Convenzioni per il pagamento rateale e incasso</li>
+          <li data-l="en">The technical credibility that comes from competing</li><li data-l="ja">競技参加で積み上げた技術と信頼</li><li data-l="it">La credibilità tecnica costruita in gara</li>
         </ul>
       </div>
     </div>
 
     <p class="body" data-l="hant">你是自己的老闆，不是我們的員工。每一台車完成後，你收你的那一份。沒有加盟金，沒有裝潢押金，沒有每月最低採購額——因為這個模式本來就不需要那些東西。</p>
     <p class="body" data-l="hans">你是自己的老板，不是我们的员工。每一台车完成后，你收你的那一份。没有加盟金，没有装潢押金，没有每月最低采购额——因为这个模式本来就不需要那些东西。</p>
-    <p class="body" data-l="en">You are your own principal, not our employee. On each completed car, you take your share. No franchise fee, no fit-out deposit, no monthly purchase minimum — this model simply doesn't need them.</p>
+    <p class="body" data-l="en">You are your own principal, not our employee. On each completed car, you take your share. No franchise fee, no fit-out deposit, no monthly purchase minimum — this model simply doesn't need them.</p><p class="body" data-l="ja">あなたは自分自身のオーナーであり、私たちの従業員ではありません。1 台完成するごとに、あなたの取り分を受け取ります。加盟金なし、内装保証金なし、月間最低仕入れなし——このモデルには、そもそもそれらが必要ないからです。</p><p class="body" data-l="it">Sei il titolare di te stesso, non un nostro dipendente. Su ogni auto completata incassi la tua parte. Nessuna fee d’ingresso, nessuna cauzione, nessun minimo d’acquisto mensile: questo modello semplicemente non ne ha bisogno.</p>
 
     <p class="body" data-l="hant">我們要的很少，但那一點不會退讓：照流程走，把曲線交出來。因為這個品牌唯一賣的東西，就是每一台車都是同樣的方法做出來的。</p>
     <p class="body" data-l="hans">我们要的很少，但那一点不会退让：照流程走，把曲线交出来。因为这个品牌唯一卖的东西，就是每一台车都是同样的方法做出来的。</p>
-    <p class="body" data-l="en">We ask for little, but we won't move on it: follow the protocol, produce the curves. Because the only thing this brand actually sells is that every car was built the same way.</p>
+    <p class="body" data-l="en">We ask for little, but we won't move on it: follow the protocol, produce the curves. Because the only thing this brand actually sells is that every car was built the same way.</p><p class="body" data-l="ja">求めることは少ない。しかしその一点は譲りません。プロトコルに従い、曲線を提出すること。このブランドが売っている唯一のものは、「すべての車が同じ方法で作られている」という事実だからです。</p><p class="body" data-l="it">Chiediamo poco, ma su quel poco non ci spostiamo: segui il protocollo, consegna le curve. Perché l’unica cosa che questo marchio vende davvero è che ogni auto è costruita nello stesso modo.</p>
 
     <div class="row" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:34px">
       <a class="btn p" style="background:var(--navy-2);color:#fff" href="mailto:hello@example.com" data-l="hant">跟我們談談</a>
       <a class="btn p" style="background:var(--navy-2);color:#fff" href="mailto:hello@example.com" data-l="hans">跟我们谈谈</a>
-      <a class="btn p" style="background:var(--navy-2);color:#fff" href="mailto:hello@example.com" data-l="en">Talk to us</a>
+      <a class="btn p" style="background:var(--navy-2);color:#fff" href="mailto:hello@example.com" data-l="en">Talk to us</a><a class="btn p" style="background:var(--navy-2);color:#fff" href="mailto:hello@example.com" data-l="ja">ご相談はこちら</a><a class="btn p" style="background:var(--navy-2);color:#fff" href="mailto:hello@example.com" data-l="it">Parliamone</a>
     </div>
   </div>
 </section>
@@ -708,32 +713,32 @@
 
     <h2 data-l="hant">服務地區</h2>
     <h2 data-l="hans">服务地区</h2>
-    <h2 data-l="en">Where we work</h2>
+    <h2 data-l="en">Where we work</h2><h2 data-l="ja">サービス地域</h2><h2 data-l="it">Dove operiamo</h2>
 
     <p class="lede" data-l="hant">系統規格全球一致。安裝與校正由本地技師執行，最終調校一律依該車實測結果決定——沒有兩台車的曲線是一樣的。</p>
     <p class="lede" data-l="hans">系统规格全球一致。安装与校正由本地技师执行，最终调校一律依该车实测结果决定——没有两台车的曲线是一样的。</p>
-    <p class="lede" data-l="en">The specification is identical everywhere. Installation and correction are carried out locally, and the final tuning always follows that car's own measurements — no two curves are the same.</p>
+    <p class="lede" data-l="en">The specification is identical everywhere. Installation and correction are carried out locally, and the final tuning always follows that car's own measurements — no two curves are the same.</p><p class="lede" data-l="ja">システム仕様は全世界共通。取り付けと補正は現地の技師が行い、最終調整は必ずその車の実測結果に従います——同じ曲線の車は 2 台とありません。</p><p class="lede" data-l="it">La specifica è identica ovunque. Installazione e correzione vengono eseguite localmente, e la taratura finale segue sempre le misure di quella specifica vettura: non esistono due curve uguali.</p>
 
     <div class="mk">
       <div class="mkc">
-        <div class="r" data-l="hant">香港</div><div class="r" data-l="hans">香港</div><div class="r" data-l="en">Hong Kong</div>
-        <div class="s" data-l="hant">總部</div><div class="s" data-l="hans">总部</div><div class="s" data-l="en">Head office</div>
+        <div class="r" data-l="hant">香港</div><div class="r" data-l="hans">香港</div><div class="r" data-l="en">Hong Kong</div><div class="r" data-l="ja">香港</div><div class="r" data-l="it">Hong Kong</div>
+        <div class="s" data-l="hant">總部</div><div class="s" data-l="hans">总部</div><div class="s" data-l="en">Head office</div><div class="s" data-l="ja">本拠地</div><div class="s" data-l="it">Sede centrale</div>
       </div>
       <div class="mkc">
-        <div class="r" data-l="hant">中國大陸</div><div class="r" data-l="hans">中国大陆</div><div class="r" data-l="en">Mainland China</div>
-        <div class="s" data-l="hant">大灣區</div><div class="s" data-l="hans">大湾区</div><div class="s" data-l="en">Greater Bay Area</div>
+        <div class="r" data-l="hant">中國大陸</div><div class="r" data-l="hans">中国大陆</div><div class="r" data-l="en">Mainland China</div><div class="r" data-l="ja">中国本土</div><div class="r" data-l="it">Cina continentale</div>
+        <div class="s" data-l="hant">大灣區</div><div class="s" data-l="hans">大湾区</div><div class="s" data-l="en">Greater Bay Area</div><div class="s" data-l="ja">グレーターベイエリア</div><div class="s" data-l="it">Greater Bay Area</div>
       </div>
       <div class="mkc">
-        <div class="r" data-l="hant">台灣</div><div class="r" data-l="hans">台湾</div><div class="r" data-l="en">Taiwan</div>
-        <div class="s" data-l="hant">預約制</div><div class="s" data-l="hans">预约制</div><div class="s" data-l="en">By appointment</div>
+        <div class="r" data-l="hant">台灣</div><div class="r" data-l="hans">台湾</div><div class="r" data-l="en">Taiwan</div><div class="r" data-l="ja">台湾</div><div class="r" data-l="it">Taiwan</div>
+        <div class="s" data-l="hant">預約制</div><div class="s" data-l="hans">预约制</div><div class="s" data-l="en">By appointment</div><div class="s" data-l="ja">完全予約制</div><div class="s" data-l="it">Su appuntamento</div>
       </div>
       <div class="mkc">
-        <div class="r" data-l="hant">美國</div><div class="r" data-l="hans">美国</div><div class="r" data-l="en">United States</div>
-        <div class="s" data-l="hant">預約制</div><div class="s" data-l="hans">预约制</div><div class="s" data-l="en">By appointment</div>
+        <div class="r" data-l="hant">美國</div><div class="r" data-l="hans">美国</div><div class="r" data-l="en">United States</div><div class="r" data-l="ja">アメリカ</div><div class="r" data-l="it">Stati Uniti</div>
+        <div class="s" data-l="hant">預約制</div><div class="s" data-l="hans">预约制</div><div class="s" data-l="en">By appointment</div><div class="s" data-l="ja">完全予約制</div><div class="s" data-l="it">Su appuntamento</div>
       </div>
       <div class="mkc">
-        <div class="r" data-l="hant">加拿大</div><div class="r" data-l="hans">加拿大</div><div class="r" data-l="en">Canada</div>
-        <div class="s" data-l="hant">預約制</div><div class="s" data-l="hans">预约制</div><div class="s" data-l="en">By appointment</div>
+        <div class="r" data-l="hant">加拿大</div><div class="r" data-l="hans">加拿大</div><div class="r" data-l="en">Canada</div><div class="r" data-l="ja">カナダ</div><div class="r" data-l="it">Canada</div>
+        <div class="s" data-l="hant">預約制</div><div class="s" data-l="hans">预约制</div><div class="s" data-l="en">By appointment</div><div class="s" data-l="ja">完全予約制</div><div class="s" data-l="it">Su appuntamento</div>
       </div>
     </div>
   </div>
@@ -746,46 +751,46 @@
 
     <h2 data-l="hant">可分期</h2>
     <h2 data-l="hans">可分期</h2>
-    <h2 data-l="en">Payable in instalments</h2>
+    <h2 data-l="en">Payable in instalments</h2><h2 data-l="ja">分割払い対応</h2><h2 data-l="it">Pagamento rateale</h2>
 
     <p class="lede" data-l="hant">一次做到位，不必一次付清。系統可分期支付，讓你不用為了預算而在環節上打折——因為只做一半的施工，等於白做。</p>
     <p class="lede" data-l="hans">一次做到位，不必一次付清。系统可分期支付，让你不用为了预算而在环节上打折——因为只做一半的施工，等于白做。</p>
-    <p class="lede" data-l="en">Do it properly once, without paying for it all at once. Instalments exist so budget never forces you to cut a stage — because a half-finished install is a wasted one.</p>
+    <p class="lede" data-l="en">Do it properly once, without paying for it all at once. Instalments exist so budget never forces you to cut a stage — because a half-finished install is a wasted one.</p><p class="lede" data-l="ja">一度で完全に仕上げる。支払いは一度でなくていい。分割払いがあるのは、予算のために工程を削らないためです——半分だけの施工は、しないのと同じですから。</p><p class="lede" data-l="it">Fallo bene una volta sola, senza pagarlo tutto in una volta. Le rate esistono perché il budget non ti costringa mai a tagliare una fase: un’installazione fatta a metà è un’installazione sprecata.</p>
 
     <table class="spec">
       <thead>
         <tr>
-          <th data-l="hant">地區</th><th data-l="hans">地区</th><th data-l="en">Region</th>
-          <th data-l="hant">分期方案</th><th data-l="hans">分期方案</th><th data-l="en">Instalment options</th>
+          <th data-l="hant">地區</th><th data-l="hans">地区</th><th data-l="en">Region</th><th data-l="ja">地域</th><th data-l="it">Area</th>
+          <th data-l="hant">分期方案</th><th data-l="hans">分期方案</th><th data-l="en">Instalment options</th><th data-l="ja">分割払いの選択肢</th><th data-l="it">Opzioni di pagamento</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td data-l="hant">香港</td><td data-l="hans">香港</td><td data-l="en">Hong Kong</td>
+          <td data-l="hant">香港</td><td data-l="hans">香港</td><td data-l="en">Hong Kong</td><td data-l="ja">香港</td><td data-l="it">Hong Kong</td>
           <td data-l="hant">信用卡免息分期、先買後付平台</td>
           <td data-l="hans">信用卡免息分期、先买后付平台</td>
-          <td data-l="en">Credit-card interest-free plans, buy-now-pay-later platforms</td>
+          <td data-l="en">Credit-card interest-free plans, buy-now-pay-later platforms</td><td data-l="ja">クレジットカード無金利分割、後払い（BNPL）プラットフォーム</td><td data-l="it">Rate senza interessi con carta di credito, piattaforme buy-now-pay-later</td>
         </tr>
         <tr>
-          <td data-l="hant">中國大陸</td><td data-l="hans">中国大陆</td><td data-l="en">Mainland China</td>
+          <td data-l="hant">中國大陸</td><td data-l="hans">中国大陆</td><td data-l="en">Mainland China</td><td data-l="ja">中国本土</td><td data-l="it">Cina continentale</td>
           <td data-l="hant">主流消費信貸產品、銀行信用卡分期</td>
           <td data-l="hans">主流消费信贷产品、银行信用卡分期</td>
-          <td data-l="en">Major consumer-credit products, bank card instalments</td>
+          <td data-l="en">Major consumer-credit products, bank card instalments</td><td data-l="ja">主要な消費者信用商品、銀行カード分割払い</td><td data-l="it">Principali prodotti di credito al consumo, rateizzazione su carta bancaria</td>
         </tr>
         <tr>
-          <td data-l="hant">台灣</td><td data-l="hans">台湾</td><td data-l="en">Taiwan</td>
-          <td data-l="hant">信用卡分期</td><td data-l="hans">信用卡分期</td><td data-l="en">Credit-card instalments</td>
+          <td data-l="hant">台灣</td><td data-l="hans">台湾</td><td data-l="en">Taiwan</td><td data-l="ja">台湾</td><td data-l="it">Taiwan</td>
+          <td data-l="hant">信用卡分期</td><td data-l="hans">信用卡分期</td><td data-l="en">Credit-card instalments</td><td data-l="ja">クレジットカード分割払い</td><td data-l="it">Rateizzazione con carta di credito</td>
         </tr>
         <tr>
-          <td data-l="hant">美國 · 加拿大</td><td data-l="hans">美国 · 加拿大</td><td data-l="en">United States · Canada</td>
-          <td data-l="hant">第三方分期付款平台</td><td data-l="hans">第三方分期付款平台</td><td data-l="en">Third-party instalment providers</td>
+          <td data-l="hant">美國 · 加拿大</td><td data-l="hans">美国 · 加拿大</td><td data-l="en">United States · Canada</td><td data-l="ja">アメリカ · カナダ</td><td data-l="it">Stati Uniti · Canada</td>
+          <td data-l="hant">第三方分期付款平台</td><td data-l="hans">第三方分期付款平台</td><td data-l="en">Third-party instalment providers</td><td data-l="ja">第三者分割払いプラットフォーム</td><td data-l="it">Fornitori terzi di pagamento rateale</td>
         </tr>
       </tbody>
     </table>
 
     <p class="body" data-l="hant">我們不自行提供信貸。所有分期方案均由當地持牌金融機構承作，利率、費用與還款條件由該機構於申請時完整揭露，並依當地法規辦理。實際可用方案依地區與機構審核結果而定。</p>
     <p class="body" data-l="hans">我们不自行提供信贷。所有分期方案均由当地持牌金融机构承作，利率、费用与还款条件由该机构于申请时完整揭露，并依当地法规办理。实际可用方案依地区与机构审核结果而定。</p>
-    <p class="body" data-l="en">We do not extend credit ourselves. All instalment plans are provided by licensed financial institutions in each market, which disclose rates, fees and repayment terms in full at application, under local regulation. Availability depends on region and on the provider's own approval.</p>
+    <p class="body" data-l="en">We do not extend credit ourselves. All instalment plans are provided by licensed financial institutions in each market, which disclose rates, fees and repayment terms in full at application, under local regulation. Availability depends on region and on the provider's own approval.</p><p class="body" data-l="ja">当社自身が信用供与を行うことはありません。すべての分割払いは各市場の認可金融機関が提供し、金利・手数料・返済条件は申込時に当該機関が現地法令に基づき完全に開示します。利用可能性は地域および審査結果によります。</p><p class="body" data-l="it">Non concediamo credito direttamente. Tutti i piani rateali sono erogati da istituti finanziari autorizzati in ciascun mercato, che comunicano integralmente tassi, costi e condizioni di rimborso al momento della richiesta, secondo la normativa locale. La disponibilità dipende dall’area e dall’approvazione dell’istituto.</p>
   </div>
 </section>
 
@@ -796,25 +801,25 @@
 
     <h2 data-l="hant">我們不承諾超越任何人</h2>
     <h2 data-l="hans">我们不承诺超越任何人</h2>
-    <h2 data-l="en">We don't promise to beat anyone</h2>
+    <h2 data-l="en">We don't promise to beat anyone</h2><h2 data-l="ja">誰かに勝つとは約束しません</h2><h2 data-l="it">Non promettiamo di battere nessuno</h2>
 
     <p class="lede" data-l="hant">我們只承諾一件事：這輛車裡每一個聲學決定，都有一條曲線可以說明；而不確定的地方，我們會直接說出來。</p>
     <p class="lede" data-l="hans">我们只承诺一件事：这辆车里每一个声学决定，都有一条曲线可以说明；而不确定的地方，我们会直接说出来。</p>
-    <p class="lede" data-l="en">We promise one thing only: every acoustic decision in the car has a curve behind it — and where we are uncertain, we will say so plainly.</p>
+    <p class="lede" data-l="en">We promise one thing only: every acoustic decision in the car has a curve behind it — and where we are uncertain, we will say so plainly.</p><p class="lede" data-l="ja">約束するのはひとつだけ。この車のすべての音響的判断には、それを説明する曲線があること。そして不確かな部分は、率直にそう言うこと。</p><p class="lede" data-l="it">Promettiamo una cosa sola: dietro ogni decisione acustica di quest’auto c’è una curva che la spiega — e dove siamo incerti, lo diciamo apertamente.</p>
 
     <div class="row">
       <a class="btn p" href="mailto:hello@example.com" data-l="hant">預約諮詢</a>
       <a class="btn p" href="mailto:hello@example.com" data-l="hans">预约咨询</a>
-      <a class="btn p" href="mailto:hello@example.com" data-l="en">Request a consultation</a>
+      <a class="btn p" href="mailto:hello@example.com" data-l="en">Request a consultation</a><a class="btn p" href="mailto:hello@example.com" data-l="ja">ご予約・ご相談</a><a class="btn p" href="mailto:hello@example.com" data-l="it">Prenota una consulenza</a>
 
       <a class="btn s" href="#top" data-l="hant">回到上方</a>
       <a class="btn s" href="#top" data-l="hans">回到上方</a>
-      <a class="btn s" href="#top" data-l="en">Back to top</a>
+      <a class="btn s" href="#top" data-l="en">Back to top</a><a class="btn s" href="#top" data-l="ja">トップへ戻る</a><a class="btn s" href="#top" data-l="it">Torna su</a>
     </div>
 
     <p class="fineprint" data-l="hant">關於「270」：270 為國際音質評分制度的滿分值，本品牌以此作為調校所對準的參考基準，非對任何實際得分之陳述或保證。實際聲學表現因車輛、座艙條件與使用情境而異。</p>
     <p class="fineprint" data-l="hans">关于「270」：270 为国际音质评分制度的满分值，本品牌以此作为调校所对准的参考基准，非对任何实际得分之陈述或保证。实际声学表现因车辆、座舱条件与使用情境而异。</p>
-    <p class="fineprint" data-l="en">On "270": 270 is the maximum value on the international sound-quality scoring system. It is used here to denote the reference we tune toward, and is not a representation or warranty of any score achieved. Actual acoustic performance varies by vehicle, cabin condition and use.</p>
+    <p class="fineprint" data-l="en">On "270": 270 is the maximum value on the international sound-quality scoring system. It is used here to denote the reference we tune toward, and is not a representation or warranty of any score achieved. Actual acoustic performance varies by vehicle, cabin condition and use.</p><p class="fineprint" data-l="ja">「270」について：270 は国際的な音質採点制度における満点値です。当ブランドは調整の照準となる参照基準としてこの数値を用いており、実際の得点に関する表明や保証ではありません。実際の音響性能は車両、車室の状態、使用環境により異なります。</p><p class="fineprint" data-l="it">Su «270»: 270 è il valore massimo del sistema internazionale di valutazione della qualità sonora. Qui indica il riferimento verso cui tariamo, e non costituisce dichiarazione o garanzia di alcun punteggio ottenuto. Le prestazioni acustiche reali variano secondo la vettura, le condizioni dell’abitacolo e l’uso.</p>
   </div>
 </section>
 
@@ -860,11 +865,13 @@
   var labels = {
     hant:{raw:'量測原始響應',cor:'校正後'},
     hans:{raw:'测量原始响应',cor:'校正后'},
-    en:{raw:'Raw measured response',cor:'After correction'}
+    en:{raw:'Raw measured response',cor:'After correction'},
+    ja:{raw:'実測レスポンス',cor:'補正後'},
+    it:{raw:'Risposta misurata',cor:'Dopo la correzione'}
   };
   function setLang(l){
     document.body.className='L-'+l;
-    document.documentElement.lang = l==='en'?'en':(l==='hans'?'zh-Hans':'zh-Hant');
+    document.documentElement.lang = l==='en'?'en':(l==='ja'?'ja':(l==='it'?'it':(l==='hans'?'zh-Hans':'zh-Hant')));
     Array.prototype.forEach.call(document.querySelectorAll('.langs button'),function(b){
       b.classList.toggle('on', b.dataset.set===l);
     });
