@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="author" content="Henderson Transpacific LLC — Ron Tsui">
+<meta name="theme-color" content="#ebe4d3">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="墨流し">
+<title>墨流し — Suminagashi · Henderson Transpacific</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ebe4d3;          /* must match PAPER in the script */
+  --sumi:#26211c;
+  --hairline:rgba(38,33,28,.16);
+  --caption:rgba(38,33,28,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{
+  height:100%;overflow:hidden;
+  overscroll-behavior:none;          /* no pull-to-refresh / bounce */
+  touch-action:none;
+}
+body{
+  position:fixed;inset:0;            /* lock the page on iOS — no scroll/bounce */
+  width:100%;height:100%;height:100dvh;overflow:hidden;
+  overscroll-behavior:none;touch-action:none;
+  background:var(--paper);
+  color:var(--sumi);
+  font-family:"EB Garamond",Georgia,serif;
+  -webkit-font-smoothing:antialiased;
+  user-select:none;-webkit-user-select:none;
+  -webkit-touch-callout:none;        /* no long-press menu */
+  -webkit-tap-highlight-color:transparent;
+}
+#water{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:none;touch-action:none}
+
+/* paper grain + soft vignette over everything (visual only) */
+#grain{
+  position:fixed;inset:0;pointer-events:none;z-index:30;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.055'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+#vignette{
+  position:fixed;inset:0;pointer-events:none;z-index:31;
+  background:radial-gradient(ellipse at 50% 42%, transparent 55%, rgba(67,52,32,.10) 100%);
+}
+
+/* ———— vertical title, right edge ———— */
+header{
+  position:fixed;top:42px;right:38px;z-index:40;
+  display:flex;gap:18px;align-items:flex-start;
+  pointer-events:none;
+  animation:fadein 1.6s .3s ease both;
+}
+.latin{
+  writing-mode:vertical-rl;
+  font-size:10px;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--caption);padding-top:6px;
+}
+.hcol{display:flex;flex-direction:column;align-items:center;gap:18px}
+h1{
+  writing-mode:vertical-rl;
+  font-family:"Zen Old Mincho",serif;font-weight:900;
+  font-size:clamp(34px,6vh,54px);letter-spacing:.22em;
+  color:var(--sumi);line-height:1;
+}
+.seal{
+  width:32px;height:32px;border-radius:5px;
+  background:#ab3a28;color:#f3ecdd;
+  font-family:"Zen Old Mincho",serif;font-weight:700;font-size:17px;
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-4deg);
+  box-shadow:0 1px 4px rgba(80,30,15,.25);
+}
+
+/* ———— hint, top left ———— */
+#hint{
+  position:fixed;top:44px;left:42px;z-index:40;pointer-events:none;
+  animation:fadein 1.6s .8s ease both;
+  transition:opacity 1.4s ease;
+}
+#hint.gone{opacity:0}
+#hint .jp{
+  font-family:"Zen Old Mincho",serif;font-size:13px;letter-spacing:.32em;
+  color:rgba(38,33,28,.72);margin-bottom:9px;
+}
+#hint p:last-child{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--caption);
+}
+
+/* ———— credit, bottom left ———— */
+#credit{
+  position:fixed;left:42px;bottom:30px;z-index:40;pointer-events:none;
+  animation:fadein 1.6s 1.4s ease both;
+}
+#credit .co{
+  display:block;
+  font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(38,33,28,.62);margin-bottom:5px;
+}
+#credit .by{
+  display:block;font-style:italic;
+  font-size:11px;letter-spacing:.06em;
+  color:var(--caption);
+}
+
+/* ———— webgl fallback ———— */
+#nogl{
+  position:fixed;inset:0;z-index:80;display:none;
+  align-items:center;justify-content:center;text-align:center;
+  background:var(--paper);padding:40px;
+  font-size:15px;letter-spacing:.08em;color:var(--sumi);
+}
+
+/* ———— tray ———— */
+#tray{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:40;
+  display:flex;align-items:center;gap:18px;
+  padding:13px 24px 11px;
+  background:rgba(250,247,238,.88);
+  border:1px solid var(--hairline);border-radius:14px;
+  box-shadow:0 12px 36px rgba(45,33,15,.13);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  animation:fadeup 1.4s 1.1s ease both;
+}
+.sep{width:1px;height:38px;background:var(--hairline)}
+.swatches{display:flex;gap:13px}
+.swatch,.tool{
+  background:none;border:none;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  font-family:inherit;color:var(--sumi);
+}
+.swatch i{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--c);border:1px solid rgba(38,33,28,.25);
+  transition:transform .15s ease;
+}
+.swatch.mizu i{background:var(--paper);border:1px dashed rgba(38,33,28,.45)}
+.swatch:hover i{transform:scale(1.16)}
+.swatch.sel i{box-shadow:0 0 0 3px var(--paper),0 0 0 4.5px var(--sumi)}
+.swatch span,.tool span{
+  font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--caption);
+}
+.tool b{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(38,33,28,.3);
+  font-family:"Zen Old Mincho",serif;font-weight:700;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s ease,color .18s ease,transform .15s ease;
+}
+.tool:hover b{transform:scale(1.08)}
+.tool.on b{background:var(--sumi);color:#f3ecdd;border-color:var(--sumi)}
+
+/* ———— custom cursor ———— */
+#cur{
+  position:fixed;width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(38,33,28,.55);
+  transform:translate(-50%,-50%);pointer-events:none;z-index:60;
+  opacity:0;transition:width .18s ease,height .18s ease,opacity .25s ease;
+}
+#cur::after{
+  content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;border-radius:50%;
+  background:rgba(38,33,28,.7);transform:translate(-50%,-50%);
+}
+#cur.down{width:14px;height:14px}
+
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes fadeup{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+
+@media (max-width:680px){
+  header{top:16px;right:14px;gap:10px}
+  h1{font-size:26px}
+  .latin{display:none}
+  .seal{width:24px;height:24px;font-size:13px;border-radius:4px}
+  #hint{top:18px;left:16px}
+  #hint .jp{font-size:11px;letter-spacing:.22em}
+  #hint p:last-child{font-size:9px}
+  #credit{left:16px;bottom:84px}
+  #credit .co{font-size:9px}
+  #credit .by{font-size:9px}
+  #tray{gap:10px;padding:9px 12px 8px;bottom:12px;max-width:calc(100vw - 16px)}
+  .swatches{gap:8px}
+  .swatch i{width:20px;height:20px}
+  .tool b{width:32px;height:32px;font-size:12px}
+  .swatch span,.tool span{font-size:7px;letter-spacing:.14em}
+  .sep{height:30px}
+  #cur{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="water"></canvas>
+<div id="grain"></div>
+<div id="vignette"></div>
+<div id="nogl">この作品には WebGL2 が必要です。<br>This artwork needs WebGL2 — please open it in a modern browser.</div>
+
+<header>
+  <div class="latin">Suminagashi · Floating Ink</div>
+  <div class="hcol">
+    <h1>墨流し</h1>
+    <div class="seal">墨</div>
+  </div>
+</header>
+
+<div id="hint">
+  <p class="jp">水面に触れて、墨を流す</p>
+  <p>tap — drop ink &nbsp;·&nbsp; hold — pour &nbsp;·&nbsp; drag — swirl the water</p>
+</div>
+
+<footer id="credit">
+  <span class="co">Built by Henderson Transpacific LLC</span>
+  <span class="by">Ron Tsui — demonstrating the power of AI</span>
+</footer>
+
+<div id="tray">
+  <div class="swatches">
+    <button class="swatch sel" data-ink="sumi"  style="--c:#26211c"><i></i><span>sumi</span></button>
+    <button class="swatch"     data-ink="ai"    style="--c:#2f5170"><i></i><span>ai</span></button>
+    <button class="swatch"     data-ink="shu"   style="--c:#b6472b"><i></i><span>shu</span></button>
+    <button class="swatch"     data-ink="odo"   style="--c:#a87b2f"><i></i><span>ōdo</span></button>
+    <button class="swatch"     data-ink="matsu" style="--c:#5a6c49"><i></i><span>matsu</span></button>
+    <button class="swatch mizu" data-ink="mizu" title="Water brush — washes ink away"><i></i><span>mizu</span></button>
+  </div>
+  <div class="sep"></div>
+  <button class="tool" id="autoBtn" title="自動 — the ink moves by itself"><b>自動</b><span>auto</span></button>
+  <button class="tool" id="washBtn" title="洗い流す — wash the ink away"><b>洗</b><span>wash</span></button>
+  <button class="tool" id="saveBtn" title="Save as PNG"><b>写</b><span>save</span></button>
+</div>
+
+<div id="cur"></div>
+
+<script>
+"use strict";
+/* ============================================================
+   墨流し — Suminagashi as living ink
+   A GPU fluid simulation (stable fluids: semi-Lagrangian
+   advection, vorticity confinement, pressure projection).
+   Ink is a pigment-density field carried by the water and
+   rendered with Beer–Lambert absorption on washi paper, so
+   colors mix subtractively like real ink.
+   Built by Henderson Transpacific LLC — Ron Tsui.
+   ============================================================ */
+
+const PAPER_HEX = "#ebe4d3";
+const PAPER_RGB = [0.922, 0.894, 0.827];
+const INKS = {
+  sumi:"#26211c", ai:"#2f5170", shu:"#b6472b",
+  odo:"#a87b2f", matsu:"#5a6c49"
+};
+
+/* sim tuning — desktop gets full fidelity, touch devices a notch lower */
+const COARSE = matchMedia("(pointer: coarse)").matches
+            || ("ontouchstart" in window && navigator.maxTouchPoints > 0);
+const SIM_BASE   = COARSE ? 144 : 256;   // velocity grid, short side
+const DYE_BASE   = COARSE ? 720 : 1024;  // ink field, short side
+const FIELD_MAX  = COARSE ? 1200 : 2048; // cap on the long side (memory/perf)
+const CURL       = 20;      // vorticity confinement (curls without grid-scale facets)
+const P_ITER     = COARSE ? 18 : 24;     // pressure solve iterations
+const VEL_DECAY  = 0.45;    // 1/s — water friction
+const SPLAT_FORCE= 6000;
+const RAD_DRAG   = 0.0020, RAD_TAP = 0.0036, RAD_POUR = 0.0042;
+
+const canvas = document.getElementById("water");
+let W=0, H=0, DPR=1;
+
+const gl = canvas.getContext("webgl2", {alpha:false, depth:false, stencil:false,
+                                        antialias:false, preserveDrawingBuffer:true,
+                                        powerPreference:"high-performance",
+                                        failIfMajorPerformanceCaveat:false});
+function bailNoGL(){
+  document.getElementById("nogl").style.display = "flex";
+  throw new Error("WebGL2 + float render targets unavailable");
+}
+if(!gl) bailNoGL();
+/* iOS exposes float render targets via EITHER extension; we only use
+   16-bit formats, so half-float coverage is enough. Accept either. */
+const extCBF = gl.getExtension("EXT_color_buffer_float")
+            || gl.getExtension("EXT_color_buffer_half_float");
+if(!extCBF) bailNoGL();
+gl.bindVertexArray(gl.createVertexArray());
+
+/* Probe which internal formats are actually renderable on this GPU and
+   fall back to RGBA16F (the most universally supported) when a packed
+   format isn't. The shaders read .xyz/.xy/.x, so RGBA16F is a safe
+   superset for every field. */
+function renderable(internal){
+  const t = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texStorage2D(gl.TEXTURE_2D, 1, internal, 4, 4);
+  const f = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, f);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+  const ok = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.deleteFramebuffer(f); gl.deleteTexture(t);
+  return ok;
+}
+if(!renderable(gl.RGBA16F)) bailNoGL();
+const F_DYE    = gl.RGBA16F;
+const F_VEL    = renderable(gl.RG16F) ? gl.RG16F : gl.RGBA16F;
+const F_SCALAR = renderable(gl.R16F)  ? gl.R16F
+               : (renderable(gl.RG16F) ? gl.RG16F : gl.RGBA16F);
+
+/* ---------- absorption spectra: ink color -> optical depth ---------- */
+function absorbOf(hex){
+  const c = [1,3,5].map(i => Math.max(parseInt(hex.slice(i,i+2),16)/255, 0.02));
+  return c.map((v,i) => Math.max(0, Math.log(PAPER_RGB[i]/v)));
+}
+const ABSORB = {};
+for(const k in INKS) ABSORB[k] = absorbOf(INKS[k]);
+
+/* ---------- GL plumbing ---------- */
+const VS = `#version 300 es
+void main(){
+  vec2 p = vec2(float((gl_VertexID<<1)&2), float(gl_VertexID&2));
+  gl_Position = vec4(p*2.0-1.0, 0.0, 1.0);
+}`;
+
+const COMMON = `#version 300 es
+precision highp float;
+precision highp sampler2D;
+out vec4 frag;
+vec4 bilerp(sampler2D t, vec2 uv, vec2 res){
+  vec2 st = uv*res - 0.5;
+  vec2 ip = floor(st);
+  vec2 fp = st - ip;
+  ivec2 r1 = ivec2(res) - 1;
+  ivec2 a = clamp(ivec2(ip),                ivec2(0), r1);
+  ivec2 b = clamp(ivec2(ip)+ivec2(1,0),     ivec2(0), r1);
+  ivec2 c = clamp(ivec2(ip)+ivec2(0,1),     ivec2(0), r1);
+  ivec2 d = clamp(ivec2(ip)+ivec2(1,1),     ivec2(0), r1);
+  return mix(mix(texelFetch(t,a,0), texelFetch(t,b,0), fp.x),
+             mix(texelFetch(t,c,0), texelFetch(t,d,0), fp.x), fp.y);
+}
+/* C1-smooth bilinear: smoothstep the fractional coords so the field has
+   no slope-kinks at cell boundaries. Used to sample VELOCITY so ink does
+   not get bent into grid-aligned facets/triangles when stirred hard. */
+vec4 bilerpS(sampler2D t, vec2 uv, vec2 res){
+  vec2 st = uv*res - 0.5;
+  vec2 ip = floor(st);
+  vec2 fp = st - ip;
+  fp = fp*fp*(3.0-2.0*fp);
+  ivec2 r1 = ivec2(res) - 1;
+  ivec2 a = clamp(ivec2(ip),                ivec2(0), r1);
+  ivec2 b = clamp(ivec2(ip)+ivec2(1,0),     ivec2(0), r1);
+  ivec2 c = clamp(ivec2(ip)+ivec2(0,1),     ivec2(0), r1);
+  ivec2 d = clamp(ivec2(ip)+ivec2(1,1),     ivec2(0), r1);
+  return mix(mix(texelFetch(t,a,0), texelFetch(t,b,0), fp.x),
+             mix(texelFetch(t,c,0), texelFetch(t,d,0), fp.x), fp.y);
+}
+vec4 fetchC(sampler2D t, ivec2 p, ivec2 res){
+  return texelFetch(t, clamp(p, ivec2(0), res-1), 0);
+}
+float hash12(vec2 p){
+  vec3 p3 = fract(vec3(p.xyx)*0.1031);
+  p3 += dot(p3, p3.yzx + 33.33);
+  return fract((p3.x + p3.y)*p3.z);
+}
+float vnoise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f*f*(3.0-2.0*f);
+  float a = hash12(i), b = hash12(i+vec2(1.,0.));
+  float c = hash12(i+vec2(0.,1.)), d = hash12(i+vec2(1.,1.));
+  return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+}
+/* divergence-free fine turbulence: ink fingers and feathers at
+   scales the bulk velocity grid cannot resolve */
+float psi(vec2 p, float t){
+  return 0.9*vnoise(p*0.42 + vec2(t*0.50, t*0.35))
+       + vnoise(p + vec2(t*0.70, -t*0.45))
+       + 0.5*vnoise(p*2.13 + vec2(-t*0.90, t*0.60));
+}
+vec2 curlNoise(vec2 p, float t){
+  const float e = 0.6;
+  float dx = psi(p+vec2(e,0.), t) - psi(p-vec2(e,0.), t);
+  float dy = psi(p+vec2(0.,e), t) - psi(p-vec2(0.,e), t);
+  return vec2(dy, -dx)/(2.0*e);
+}`;
+
+const SHADERS = {
+advect: COMMON + `
+uniform sampler2D uVel, uSrc;
+uniform vec2 uRes, uVelRes, uSrcRes, uNoiseScale;
+uniform float uDt, uDiss, uTime, uTurbBase, uTurbFlow;
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes;
+  vec2 vel = bilerpS(uVel, uv, uVelRes).xy;
+  if(uTurbBase > 0.0){
+    vec2 tn = curlNoise(uv*uNoiseScale, uTime);
+    vel += tn*(uTurbBase + uTurbFlow*length(vel));
+  }
+  vec2 coord = uv - uDt * vel / uVelRes;
+  frag = max(bilerp(uSrc, coord, uSrcRes) * uDiss, vec4(-1e6));
+}`,
+
+/* MacCormack correction pass: second-order advection. The plain
+   semi-Lagrangian step smears ink a little every frame; this pass
+   estimates that error by advecting backwards and cancels it, so
+   filaments stay wispy instead of blurring out. */
+maccormack: COMMON + `
+uniform sampler2D uVel, uPhi0, uPhi1;
+uniform vec2 uRes, uVelRes, uNoiseScale;
+uniform float uDt, uDiss, uTime, uTurbBase, uTurbFlow;
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes;
+  vec2 vel = bilerpS(uVel, uv, uVelRes).xy;
+  if(uTurbBase > 0.0){
+    vec2 tn = curlNoise(uv*uNoiseScale, uTime);
+    vel += tn*(uTurbBase + uTurbFlow*length(vel));
+  }
+  vec2 step = uDt * vel / uVelRes;
+  vec4 phi2 = bilerp(uPhi1, uv + step, uRes);              // advect back
+  vec4 phi0 = texelFetch(uPhi0, ivec2(gl_FragCoord.xy), 0);
+  vec4 phi1 = texelFetch(uPhi1, ivec2(gl_FragCoord.xy), 0);
+  vec4 res = phi1 + 0.5*(phi0 - phi2);
+  /* limiter: stay inside the source neighborhood, no overshoot */
+  vec2 st = (uv - step)*uRes - 0.5;
+  ivec2 ip = ivec2(floor(st));
+  ivec2 r1 = ivec2(uRes) - 1;
+  vec4 a = texelFetch(uPhi0, clamp(ip,            ivec2(0), r1), 0);
+  vec4 b = texelFetch(uPhi0, clamp(ip+ivec2(1,0), ivec2(0), r1), 0);
+  vec4 c = texelFetch(uPhi0, clamp(ip+ivec2(0,1), ivec2(0), r1), 0);
+  vec4 d = texelFetch(uPhi0, clamp(ip+ivec2(1,1), ivec2(0), r1), 0);
+  res = clamp(res, min(min(a,b),min(c,d)), max(max(a,b),max(c,d)));
+  frag = max(res*uDiss, vec4(0.0));
+}`,
+
+splat: COMMON + `
+uniform sampler2D uTarget;
+uniform vec2 uRes;
+uniform vec3 uValue;
+uniform vec2 uPoint;
+uniform float uRadius, uAspect, uClampLow;
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes;
+  vec2 d = uv - uPoint;
+  d.x *= uAspect;
+  float g = exp(-dot(d,d)/uRadius);
+  vec3 base = texelFetch(uTarget, ivec2(gl_FragCoord.xy), 0).xyz;
+  frag = vec4(max(base + uValue*g, vec3(uClampLow)), 1.0);
+}`,
+
+curl: COMMON + `
+uniform sampler2D uVel;
+uniform vec2 uRes;
+void main(){
+  ivec2 p = ivec2(gl_FragCoord.xy), r = ivec2(uRes);
+  float L = fetchC(uVel, p+ivec2(-1,0), r).y;
+  float R = fetchC(uVel, p+ivec2( 1,0), r).y;
+  float B = fetchC(uVel, p+ivec2(0,-1), r).x;
+  float T = fetchC(uVel, p+ivec2(0, 1), r).x;
+  frag = vec4(0.5*(R - L - T + B), 0.0, 0.0, 1.0);
+}`,
+
+vorticity: COMMON + `
+uniform sampler2D uVel, uCurl;
+uniform vec2 uRes;
+uniform float uStrength, uDt;
+void main(){
+  ivec2 p = ivec2(gl_FragCoord.xy), r = ivec2(uRes);
+  float L = fetchC(uCurl, p+ivec2(-1,0), r).x;
+  float R = fetchC(uCurl, p+ivec2( 1,0), r).x;
+  float B = fetchC(uCurl, p+ivec2(0,-1), r).x;
+  float T = fetchC(uCurl, p+ivec2(0, 1), r).x;
+  float C = texelFetch(uCurl, p, 0).x;
+  vec2 force = 0.5*vec2(abs(T)-abs(B), abs(R)-abs(L));
+  force /= length(force) + 1e-4;
+  force *= uStrength * C;
+  force.y *= -1.0;
+  vec2 vel = texelFetch(uVel, p, 0).xy + force*uDt;
+  frag = vec4(clamp(vel, vec2(-1000.0), vec2(1000.0)), 0.0, 1.0);
+}`,
+
+divergence: COMMON + `
+uniform sampler2D uVel;
+uniform vec2 uRes;
+void main(){
+  ivec2 p = ivec2(gl_FragCoord.xy), r = ivec2(uRes);
+  vec2 C = texelFetch(uVel, p, 0).xy;
+  float L = (p.x > 0)     ? texelFetch(uVel, p+ivec2(-1,0),0).x : -C.x;
+  float R = (p.x < r.x-1) ? texelFetch(uVel, p+ivec2( 1,0),0).x : -C.x;
+  float B = (p.y > 0)     ? texelFetch(uVel, p+ivec2(0,-1),0).y : -C.y;
+  float T = (p.y < r.y-1) ? texelFetch(uVel, p+ivec2(0, 1),0).y : -C.y;
+  frag = vec4(0.5*(R - L + T - B), 0.0, 0.0, 1.0);
+}`,
+
+pressure: COMMON + `
+uniform sampler2D uPres, uDiv;
+uniform vec2 uRes;
+void main(){
+  ivec2 p = ivec2(gl_FragCoord.xy), r = ivec2(uRes);
+  float L = fetchC(uPres, p+ivec2(-1,0), r).x;
+  float R = fetchC(uPres, p+ivec2( 1,0), r).x;
+  float B = fetchC(uPres, p+ivec2(0,-1), r).x;
+  float T = fetchC(uPres, p+ivec2(0, 1), r).x;
+  float d = texelFetch(uDiv, p, 0).x;
+  frag = vec4((L + R + B + T - d)*0.25, 0.0, 0.0, 1.0);
+}`,
+
+gradient: COMMON + `
+uniform sampler2D uPres, uVel;
+uniform vec2 uRes;
+uniform float uVisc;
+void main(){
+  ivec2 p = ivec2(gl_FragCoord.xy), r = ivec2(uRes);
+  float L = fetchC(uPres, p+ivec2(-1,0), r).x;
+  float R = fetchC(uPres, p+ivec2( 1,0), r).x;
+  float B = fetchC(uPres, p+ivec2(0,-1), r).x;
+  float T = fetchC(uPres, p+ivec2(0, 1), r).x;
+  vec2 vC = texelFetch(uVel, p, 0).xy;
+  /* light viscosity: blend toward the neighbour average to kill the
+     grid-scale checkerboard the collocated pressure solve can leave */
+  vec2 vAvg = 0.25*(fetchC(uVel,p+ivec2(-1,0),r).xy + fetchC(uVel,p+ivec2(1,0),r).xy
+                  + fetchC(uVel,p+ivec2(0,-1),r).xy + fetchC(uVel,p+ivec2(0,1),r).xy);
+  vec2 vel = mix(vC, vAvg, uVisc) - vec2(R-L, T-B);
+  frag = vec4(vel, 0.0, 1.0);
+}`,
+
+copy: COMMON + `
+uniform sampler2D uSrc;
+uniform vec2 uRes, uSrcRes;
+void main(){
+  frag = bilerp(uSrc, gl_FragCoord.xy/uRes, uSrcRes);
+}`,
+
+display: COMMON + `
+uniform sampler2D uDye;
+uniform vec2 uRes, uDyeRes;
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes;
+  vec3 depth = bilerp(uDye, uv, uDyeRes).rgb;
+  /* soft knee: thin haze fades into the paper, dense ink stays —
+     keeps the sheet clean and the clouds compact, like real sumi */
+  float tk = dot(depth, vec3(0.3333));
+  depth *= (tk/(tk + 0.045))*1.18;
+  vec3 paper = vec3(0.922, 0.894, 0.827);
+  /* faint washi fibre */
+  float fib = (hash12(floor(gl_FragCoord.xy*vec2(0.11,1.0))) - 0.5)*0.012
+            + (hash12(floor(gl_FragCoord.xy*vec2(1.0,0.13))) - 0.5)*0.012;
+  paper += fib + (hash12(gl_FragCoord.xy)-0.5)*0.016;
+  vec3 col = paper * exp(-depth);
+  /* wet-ink rim: darken where density changes fast */
+  vec2 tx = 1.0/uDyeRes;
+  float t0 = dot(depth, vec3(0.3333));
+  float gx = dot(bilerp(uDye, uv+vec2(tx.x,0.0), uDyeRes).rgb, vec3(0.3333)) - t0;
+  float gy = dot(bilerp(uDye, uv+vec2(0.0,tx.y), uDyeRes).rgb, vec3(0.3333)) - t0;
+  float rim = clamp(length(vec2(gx,gy))*1.5, 0.0, 0.30);
+  col *= 1.0 - rim*0.45;
+  frag = vec4(col, 1.0);
+}`
+};
+
+function compile(type, src){
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src);
+  gl.compileShader(s);
+  if(!gl.getShaderParameter(s, gl.COMPILE_STATUS))
+    throw new Error("shader: " + gl.getShaderInfoLog(s));
+  return s;
+}
+const vsObj = compile(gl.VERTEX_SHADER, VS);
+const progs = {};
+for(const name in SHADERS){
+  const p = gl.createProgram();
+  gl.attachShader(p, vsObj);
+  gl.attachShader(p, compile(gl.FRAGMENT_SHADER, SHADERS[name]));
+  gl.linkProgram(p);
+  if(!gl.getProgramParameter(p, gl.LINK_STATUS))
+    throw new Error("link " + name + ": " + gl.getProgramInfoLog(p));
+  const u = {};
+  const n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+  for(let i=0;i<n;i++){
+    const info = gl.getActiveUniform(p, i);
+    u[info.name] = gl.getUniformLocation(p, info.name);
+  }
+  progs[name] = {p, u};
+}
+
+function createFBO(w, h, internal, format){
+  const tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texStorage2D(gl.TEXTURE_2D, 1, internal, w, h);
+  const fbo = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+  gl.clearColor(0,0,0,0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  return {tex, fbo, w, h};
+}
+function doubleFBO(w, h, internal, format){
+  return {
+    a: createFBO(w,h,internal,format),
+    b: createFBO(w,h,internal,format),
+    get read(){ return this.a; },
+    get write(){ return this.b; },
+    swap(){ const t = this.a; this.a = this.b; this.b = t; }
+  };
+}
+function blit(target){
+  gl.bindFramebuffer(gl.FRAMEBUFFER, target ? target.fbo : null);
+  gl.viewport(0, 0, target ? target.w : canvas.width, target ? target.h : canvas.height);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+}
+function bindTex(prog, name, tex, unit){
+  gl.activeTexture(gl.TEXTURE0 + unit);
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.uniform1i(prog.u[name], unit);
+}
+
+/* ---------- fields ---------- */
+let velocity, dye, dyeTmp, pressure, curlF, divF;
+let simW, simH, dyeW, dyeH;
+
+function fieldRes(base){
+  // clamp so degenerate window shapes can't demand absurd textures
+  const aspect = Math.min(Math.max(W/H, 1/3), 3);
+  let w, h;
+  if(aspect >= 1){ w = Math.round(base*aspect); h = base; }
+  else { w = base; h = Math.round(base/aspect); }
+  // cap the long side (tall phones / wide tablets) for memory + perf
+  const long = Math.max(w, h);
+  if(long > FIELD_MAX){
+    const s = FIELD_MAX/long;
+    w = Math.max(8, Math.round(w*s));
+    h = Math.max(8, Math.round(h*s));
+  }
+  return [w, h];
+}
+function initFields(keep){
+  const [sw, sh] = fieldRes(SIM_BASE);
+  const [dw, dh] = fieldRes(DYE_BASE);
+  const oldVel = keep && velocity, oldDye = keep && dye;
+  const nVel = doubleFBO(sw, sh, F_VEL, gl.RG);
+  const nDye = doubleFBO(dw, dh, F_DYE, gl.RGBA);
+  if(oldVel){    // carry the artwork across a resize
+    gl.useProgram(progs.copy.p);
+    gl.uniform2f(progs.copy.u.uRes, dw, dh);
+    gl.uniform2f(progs.copy.u.uSrcRes, oldDye.read.w, oldDye.read.h);
+    bindTex(progs.copy, "uSrc", oldDye.read.tex, 0);
+    blit(nDye.read);
+    gl.uniform2f(progs.copy.u.uRes, sw, sh);
+    gl.uniform2f(progs.copy.u.uSrcRes, oldVel.read.w, oldVel.read.h);
+    bindTex(progs.copy, "uSrc", oldVel.read.tex, 0);
+    blit(nVel.read);
+  }
+  velocity = nVel; dye = nDye;
+  dyeTmp = createFBO(dw, dh, F_DYE, gl.RGBA);
+  pressure = doubleFBO(sw, sh, F_SCALAR, gl.RED);
+  curlF = createFBO(sw, sh, F_SCALAR, gl.RED);
+  divF  = createFBO(sw, sh, F_SCALAR, gl.RED);
+  simW = sw; simH = sh; dyeW = dw; dyeH = dh;
+}
+
+/* ---------- splats ---------- */
+const splatQueue = [];
+function queueSplat(x, y, vx, vy, dyeVec, radius){
+  splatQueue.push({x, y, vx, vy, dyeVec, radius});
+}
+function runSplats(){
+  const aspect = W/H;
+  const sp = progs.splat;
+  gl.useProgram(sp.p);
+  for(const s of splatQueue){
+    gl.uniform1f(sp.u.uAspect, aspect);
+    gl.uniform2f(sp.u.uPoint, s.x, s.y);
+    gl.uniform1f(sp.u.uRadius, s.radius);
+    if(s.vx || s.vy){
+      gl.uniform2f(sp.u.uRes, simW, simH);
+      gl.uniform3f(sp.u.uValue, s.vx, s.vy, 0);
+      gl.uniform1f(sp.u.uClampLow, -1e6);
+      bindTex(sp, "uTarget", velocity.read.tex, 0);
+      blit(velocity.write);
+      velocity.swap();
+    }
+    if(s.dyeVec){
+      gl.uniform2f(sp.u.uRes, dyeW, dyeH);
+      gl.uniform3f(sp.u.uValue, s.dyeVec[0], s.dyeVec[1], s.dyeVec[2]);
+      gl.uniform1f(sp.u.uClampLow, 0);
+      bindTex(sp, "uTarget", dye.read.tex, 0);
+      blit(dye.write);
+      dye.swap();
+    }
+  }
+  splatQueue.length = 0;
+}
+
+/* ---------- simulation step ---------- */
+let washUntil = 0;
+function simStep(dt, now){
+  runSplats();
+
+  // vorticity confinement
+  gl.useProgram(progs.curl.p);
+  gl.uniform2f(progs.curl.u.uRes, simW, simH);
+  bindTex(progs.curl, "uVel", velocity.read.tex, 0);
+  blit(curlF);
+
+  gl.useProgram(progs.vorticity.p);
+  gl.uniform2f(progs.vorticity.u.uRes, simW, simH);
+  gl.uniform1f(progs.vorticity.u.uStrength, CURL);
+  gl.uniform1f(progs.vorticity.u.uDt, dt);
+  bindTex(progs.vorticity, "uVel", velocity.read.tex, 0);
+  bindTex(progs.vorticity, "uCurl", curlF.tex, 1);
+  blit(velocity.write);
+  velocity.swap();
+
+  // incompressibility
+  gl.useProgram(progs.divergence.p);
+  gl.uniform2f(progs.divergence.u.uRes, simW, simH);
+  bindTex(progs.divergence, "uVel", velocity.read.tex, 0);
+  blit(divF);
+
+  gl.useProgram(progs.pressure.p);
+  gl.uniform2f(progs.pressure.u.uRes, simW, simH);
+  for(let i=0;i<P_ITER;i++){
+    bindTex(progs.pressure, "uPres", pressure.read.tex, 0);
+    bindTex(progs.pressure, "uDiv", divF.tex, 1);
+    blit(pressure.write);
+    pressure.swap();
+  }
+
+  gl.useProgram(progs.gradient.p);
+  gl.uniform2f(progs.gradient.u.uRes, simW, simH);
+  gl.uniform1f(progs.gradient.u.uVisc, 0.14);
+  bindTex(progs.gradient, "uPres", pressure.read.tex, 0);
+  bindTex(progs.gradient, "uVel", velocity.read.tex, 1);
+  blit(velocity.write);
+  velocity.swap();
+
+  // advection
+  const washing = now < washUntil;
+  const velDiss = Math.exp(-(VEL_DECAY + (washing ? 3.0 : 0))*dt);
+  const dyeDiss = washing ? Math.exp(-3.2*dt) : 1.0;
+
+  const tNow = (now % 1000000)/1000;
+  const nsX = dyeW/26, nsY = dyeH/26;       // turbulence wavelength ≈ 26 ink texels
+  const TURB_BASE = 3.0, TURB_FLOW = 0.18;  // settled fingering + churn feathering
+
+  const ad = progs.advect;
+  gl.useProgram(ad.p);
+  gl.uniform1f(ad.u.uDt, dt);
+  gl.uniform2f(ad.u.uVelRes, simW, simH);
+
+  // water carries itself with no added noise
+  gl.uniform2f(ad.u.uRes, simW, simH);
+  gl.uniform2f(ad.u.uSrcRes, simW, simH);
+  gl.uniform1f(ad.u.uDiss, velDiss);
+  gl.uniform1f(ad.u.uTurbBase, 0);
+  gl.uniform1f(ad.u.uTurbFlow, 0);
+  bindTex(ad, "uVel", velocity.read.tex, 0);
+  bindTex(ad, "uSrc", velocity.read.tex, 1);
+  blit(velocity.write);
+  velocity.swap();
+
+  // dye: forward semi-Lagrangian into a temp, then MacCormack-correct;
+  // both passes ride velocity + fine curl-noise so ink feathers
+  gl.uniform2f(ad.u.uRes, dyeW, dyeH);
+  gl.uniform2f(ad.u.uSrcRes, dyeW, dyeH);
+  gl.uniform1f(ad.u.uDiss, 1.0);
+  gl.uniform1f(ad.u.uTime, tNow);
+  gl.uniform2f(ad.u.uNoiseScale, nsX, nsY);
+  gl.uniform1f(ad.u.uTurbBase, TURB_BASE);
+  gl.uniform1f(ad.u.uTurbFlow, TURB_FLOW);
+  bindTex(ad, "uVel", velocity.read.tex, 0);
+  bindTex(ad, "uSrc", dye.read.tex, 1);
+  blit(dyeTmp);
+
+  const mc = progs.maccormack;
+  gl.useProgram(mc.p);
+  gl.uniform2f(mc.u.uRes, dyeW, dyeH);
+  gl.uniform2f(mc.u.uVelRes, simW, simH);
+  gl.uniform1f(mc.u.uDt, dt);
+  gl.uniform1f(mc.u.uDiss, dyeDiss);
+  gl.uniform1f(mc.u.uTime, tNow);
+  gl.uniform2f(mc.u.uNoiseScale, nsX, nsY);
+  gl.uniform1f(mc.u.uTurbBase, TURB_BASE);
+  gl.uniform1f(mc.u.uTurbFlow, TURB_FLOW);
+  bindTex(mc, "uVel", velocity.read.tex, 0);
+  bindTex(mc, "uPhi0", dye.read.tex, 1);
+  bindTex(mc, "uPhi1", dyeTmp.tex, 2);
+  blit(dye.write);
+  dye.swap();
+}
+
+function draw(){
+  gl.useProgram(progs.display.p);
+  gl.uniform2f(progs.display.u.uRes, canvas.width, canvas.height);
+  gl.uniform2f(progs.display.u.uDyeRes, dyeW, dyeH);
+  bindTex(progs.display, "uDye", dye.read.tex, 0);
+  blit(null);
+}
+
+/* ---------- interaction ---------- */
+let pid = null, lastX = 0, lastY = 0, downX = 0, downY = 0, lastMoveT = 0;
+let selected = "sumi";
+
+function inkVec(amount){
+  if(selected === "mizu") return [-3.0*amount, -3.0*amount, -3.0*amount];
+  const a = ABSORB[selected];
+  return [a[0]*amount, a[1]*amount, a[2]*amount];
+}
+
+canvas.addEventListener("pointerdown", e => {
+  if(pid !== null) return;
+  e.preventDefault();
+  pid = e.pointerId;
+  try { canvas.setPointerCapture(pid); } catch(_) {}
+  cancelIntro(); hideHint();
+  downX = lastX = e.clientX; downY = lastY = e.clientY;
+  lastMoveT = 0;
+  const u = e.clientX/W, v = 1 - e.clientY/H;
+  queueSplat(u, v, 0, 0, inkVec(2.6), RAD_TAP);
+  /* drop bloom: a ragged ring of micro-currents so the drop
+     mushrooms outward like real ink meeting water */
+  const nB = 5, phiB = Math.random()*6.283;
+  for(let k=0;k<nB;k++){
+    const ang = phiB + k/nB*6.283 + (Math.random()-0.5)*0.6;
+    const cosA = Math.cos(ang), sinA = Math.sin(ang);
+    const mixT = Math.random()*0.8;            // outward vs swirl
+    const f = 60 + Math.random()*90;
+    queueSplat(u + cosA*0.012, v + sinA*0.012,
+               (cosA*(1-mixT) - sinA*mixT)*f,
+               (sinA*(1-mixT) + cosA*mixT)*f,
+               null, 0.0015);
+  }
+  cur.classList.add("down");
+});
+
+canvas.addEventListener("pointermove", e => {
+  if(e.pointerId !== pid) return;
+  const x = e.clientX, y = e.clientY;
+  const dx = (x - lastX)/W, dy = -(y - lastY)/H;
+  if(dx === 0 && dy === 0) return;
+  lastMoveT = performance.now();
+  const u = x/W, v = 1 - y/H;
+  const len = Math.hypot(dx, dy);
+  const amt = Math.min(len*34, 0.9) + 0.06;
+  queueSplat(u, v, dx*SPLAT_FORCE, dy*SPLAT_FORCE, inkVec(amt), RAD_DRAG);
+  lastX = x; lastY = y;
+});
+
+function endPointer(e){
+  if(e.pointerId !== pid) return;
+  pid = null;
+  cur.classList.remove("down");
+}
+canvas.addEventListener("pointerup", endPointer);
+canvas.addEventListener("pointercancel", endPointer);
+canvas.addEventListener("contextmenu", e => e.preventDefault());
+
+/* holding still = pouring ink */
+function pourStep(now){
+  if(pid === null) return;
+  if(now - lastMoveT < 120) return;          // actively dragging
+  const u = lastX/W, v = 1 - lastY/H;
+  const a = Math.random()*Math.PI*2;
+  queueSplat(u, v, Math.cos(a)*36, Math.sin(a)*36,
+             inkVec(0.14 + Math.random()*0.18), RAD_POUR*(0.8 + Math.random()*0.5));
+}
+
+/* ---------- auto mode ---------- */
+let auto = false, nextAuto = 0;
+const PALETTE = Object.keys(INKS);
+function autoStep(now){
+  if(!auto || now < nextAuto) return;
+  nextAuto = now + 500 + Math.random()*1900;
+  const ink = ABSORB[PALETTE[(Math.random()*PALETTE.length)|0]];
+  const amt = 1.2 + Math.random()*1.4;
+  const a = Math.random()*Math.PI*2;
+  const f = 120 + Math.random()*260;
+  queueSplat(0.15+Math.random()*0.7, 0.18+Math.random()*0.64,
+             Math.cos(a)*f, Math.sin(a)*f,
+             [ink[0]*amt, ink[1]*amt, ink[2]*amt],
+             0.003 + Math.random()*0.007);
+}
+
+/* ---------- intro: ink blooms on its own ----------
+   The master composition is horizontal (built for a wide sheet). On a
+   tall phone we compress it vertically toward the centre and lighten it
+   so the sheet keeps its negative space instead of flooding to black. */
+const INTRO_MASTER = [
+  {t: 600, s:[[0.41,0.52,"sumi",3.6,0.012,300,2.4],[0.445,0.49,"sumi",2.8,0.008,260,4.6],[0.385,0.485,"sumi",2.2,0.006,220,3.4]]},
+  {t:1350, s:[[0.37,0.565,"ai", 2.4,0.007,300,2.9],[0.43,0.575,"sumi",2.2,0.007,260,5.8],[0.455,0.535,"ai", 1.6,0.005,220,1.0]]},
+  {t:2100, s:[[0.60,0.475,"shu",2.6,0.009,300,0.4],[0.635,0.43,"shu", 1.8,0.006,260,5.7],[0.575,0.52,"shu",1.4,0.005,220,2.2]]},
+  {t:2900, s:[[0.50,0.50,"sumi",1.8,0.006,420,3.7],[0.46,0.43,"ai",  1.4,0.005,260,1.4]]},
+  {t:3700, s:[[0.545,0.55,"sumi",1.2,0.004,380,4.9],[0.615,0.50,"odo",0.9,0.004,240,0.9]]},
+  {t:4500, s:[[0.44,0.52,"sumi",0.0,0.010,520,2.0]]}      /* pure stir */
+];
+let introEvents = [];
+function buildIntro(){
+  const aspect = W/H;
+  const portrait = aspect < 0.95;
+  // squeeze the vertical spread on tall screens; widen x a touch so it
+  // still reads as a composition, not a thin stripe
+  const vS  = portrait ? Math.max(aspect/0.95, 0.46) : 1;
+  const hS  = portrait ? 1.18 : 1;
+  const amtK = (COARSE ? 0.72 : 1) * (portrait ? 0.78 : 1);
+  const fK   = portrait ? 0.72 : 1;
+  introEvents = INTRO_MASTER.map(ev => ({
+    t: ev.t,
+    s: ev.s.map(([x,y,ink,amt,rad,f,dir]) =>
+      [0.5+(x-0.5)*hS, 0.46+(y-0.5)*vS, ink, amt*amtK, rad, f*fK, dir])
+  }));
+  introT0 = null;
+}
+let introT0 = null;
+function introStep(now){
+  if(!introEvents.length) return;
+  if(introT0 === null) introT0 = now;
+  const el = now - introT0;
+  while(introEvents.length && introEvents[0].t <= el){
+    for(const [x,y,ink,amt,rad,f,dir] of introEvents.shift().s){
+      const a = ABSORB[ink];
+      queueSplat(x, y, Math.cos(dir)*f, Math.sin(dir)*f,
+                 amt > 0 ? [a[0]*amt, a[1]*amt, a[2]*amt] : null, rad);
+    }
+  }
+}
+function cancelIntro(){ introEvents = []; }
+
+/* ---------- UI ---------- */
+const cur     = document.getElementById("cur");
+const hint    = document.getElementById("hint");
+const autoBtn = document.getElementById("autoBtn");
+const washBtn = document.getElementById("washBtn");
+const saveBtn = document.getElementById("saveBtn");
+
+document.querySelectorAll(".swatch").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".swatch").forEach(s => s.classList.remove("sel"));
+    b.classList.add("sel");
+    selected = b.dataset.ink;
+  });
+});
+autoBtn.addEventListener("click", () => {
+  auto = !auto;
+  autoBtn.classList.toggle("on", auto);
+  cancelIntro();
+});
+washBtn.addEventListener("click", () => {
+  washUntil = performance.now() + 1500;
+  cancelIntro();
+});
+saveBtn.addEventListener("click", () => {
+  const out = document.createElement("canvas");
+  out.width = canvas.width; out.height = canvas.height;
+  const g = out.getContext("2d");
+  g.drawImage(canvas, 0, 0);
+  g.setTransform(DPR, 0, 0, DPR, 0, 0);
+  g.font = 'italic 12px "EB Garamond", Georgia, serif';
+  g.fillStyle = "rgba(38,33,28,0.55)";
+  g.textAlign = "right";
+  g.fillText("墨流し · Henderson Transpacific LLC — Ron Tsui", W-16, H-14);
+  const name = "suminagashi-" + new Date().toISOString().slice(0,19).replace(/[:T]/g,"-") + ".png";
+  const iOS = /iP(hone|ad|od)/.test(navigator.platform)
+           || (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.platform));
+  // Synchronous export inside the tap gesture = most compatible across iOS/Android.
+  const url = out.toDataURL("image/png");
+  if(("download" in document.createElement("a")) && !iOS){
+    const a = document.createElement("a");
+    a.href = url; a.download = name; a.click();
+  } else {
+    // iOS Safari: open the image so the user can long-press → Save to Photos
+    const w = window.open();
+    if(w) w.document.write('<img src="'+url+'" style="width:100%">'
+        + '<p style="font:14px sans-serif;color:#555;text-align:center">'
+        + 'Long-press the image to save</p>');
+    else window.location.href = url;
+  }
+});
+
+window.addEventListener("pointermove", e => {
+  if(e.pointerType === "touch"){ cur.style.opacity = 0; return; }
+  cur.style.left = e.clientX + "px";
+  cur.style.top  = e.clientY + "px";
+  cur.style.opacity = (e.target === canvas) ? 1 : 0;
+});
+window.addEventListener("pointerleave", () => { cur.style.opacity = 0; });
+
+let hintHidden = false;
+function hideHint(){
+  if(hintHidden) return;
+  hintHidden = true;
+  hint.classList.add("gone");
+}
+setTimeout(hideHint, 16000);
+
+/* ---------- boot & main loop ---------- */
+const vv = window.visualViewport;
+function viewportSize(){
+  // visualViewport excludes the iOS toolbars and is the most stable source
+  return [Math.max(Math.round(vv ? vv.width  : window.innerWidth ), 1),
+          Math.max(Math.round(vv ? vv.height : window.innerHeight), 1)];
+}
+function resize(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  [W, H] = viewportSize();
+  canvas.width  = Math.round(W*DPR);
+  canvas.height = Math.round(H*DPR);
+  initFields(!!velocity);
+}
+resize();
+buildIntro();   // compose the opening for this screen's shape
+
+/* Debounce resize. iOS fires a storm of resize events while the address
+   bar slides; reinitialising the fields each time would wipe the art and
+   stutter. Collapse the storm and skip no-op changes. */
+let resizeTimer = 0;
+function onResize(){
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const [nw, nh] = viewportSize();
+    const ndpr = Math.min(window.devicePixelRatio || 1, 2);
+    if(nw === W && nh === H && ndpr === DPR) return;   // nothing meaningful changed
+    resize();
+  }, 160);
+}
+window.addEventListener("resize", onResize);
+window.addEventListener("orientationchange", onResize);
+if(vv) vv.addEventListener("resize", onResize);
+
+/* block iOS pinch-zoom / double-tap-zoom gestures over the artwork */
+["gesturestart","gesturechange","gestureend"].forEach(ev =>
+  document.addEventListener(ev, e => e.preventDefault(), {passive:false}));
+let lastTouchEnd = 0;
+document.addEventListener("touchend", e => {
+  const t = performance.now();
+  if(t - lastTouchEnd < 320) e.preventDefault();        // kill double-tap zoom
+  lastTouchEnd = t;
+}, {passive:false});
+
+/* recover gracefully if the GPU drops our context (backgrounding, etc.) */
+canvas.addEventListener("webglcontextlost", e => { e.preventDefault(); running = false; });
+canvas.addEventListener("webglcontextrestored", () => location.reload());
+
+let running = true, lastNow = performance.now();
+function frame(now){
+  if(!running) return;
+  const dt = Math.min((now - lastNow)/1000, 0.033);
+  lastNow = now;
+  introStep(now);
+  autoStep(now);
+  pourStep(now);
+  if(dt > 0) simStep(dt, now);
+  draw();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
